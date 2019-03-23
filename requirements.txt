@@ -1,0 +1,12 @@
+Django==2.1.7
+django-multiselectfield
+arrow
+Pillow
+Markdown
+readtime
+django-htmlmin
+psycopg2
+django-otp
+qrcode
+django[bcrypt]
+social-auth-app-django
