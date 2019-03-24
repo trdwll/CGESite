@@ -12,6 +12,10 @@ handler500 = views.handler500
 
 
 urlpatterns = [
+    path('', views.HomeView.as_view(), name='home_page'),
+
+    path('store/', include('store.urls')),
+
     path('admin/', admin.site.urls),
 ]
 

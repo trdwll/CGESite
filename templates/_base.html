@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Test Page{% endblock %}</title>
+
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}" media="all" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome/all.min.css' %}" media="all" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}" media="all" />
+    </head>
+    <body>
+
+        {% include '_navbar.html' %}
+
+        {% block content %} 
+        empty content
+        {% endblock %}
+
+    </body>
+</html>

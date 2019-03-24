@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+
+{% block title %}Store Item{% endblock %}
+
+{% block content %}
+<ul>
+<li><strong>Title:</strong> {{ item.title }}</li>
+<li><strong>Description:</strong> {{ item.description }}</li>
+<li><strong>Category:</strong> <a href="{{ item.category.get_absolute_url }}">{{ item.category.title }}</a></li>
+<li><strong>Price:</strong> {{ item.price }}</li>
+<li><strong>Average Rating:</strong> {{ average_rating.rating__avg|floatformat:"1" }}</li>
+<li><strong>Users Rated this item:</strong> {{ users_rated }}</li>
+</ul>
+{% endblock %}

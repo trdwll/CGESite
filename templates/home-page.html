@@ -1,0 +1,13 @@
+{% extends '_base.html' %}
+
+{% block title %}testr{% endblock %}
+
+{% block content %}
+<section id="hero" style="background: url('static/img/index_bg.jpg') top center;">
+    <div class="hero-container">
+        <h1>{{ homedata.title }}</h1>
+        <h2>{{ homedata.tagline }}</h2>
+        <a href="#" class="btn-get-started">Play Now</a>
+    </div>
+</section>
+{% endblock %}

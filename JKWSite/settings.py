@@ -1,7 +1,10 @@
 import os
 
+from django.contrib.messages import constants as message_constants
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,15 +44,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-
-    # htmlminify middleware
-    'htmlmin.middleware.HtmlMinifyMiddleware',
-    'htmlmin.middleware.MarkRequestMiddleware',
-
-    # OTP middleware
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django_otp.middleware.OTPMiddleware'
-
     # Django middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,6 +52,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # htmlminify middleware
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
+
+    # OTP middleware
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
 ]
 
 ROOT_URLCONF = 'JKWSite.urls'

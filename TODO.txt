@@ -1,0 +1,16 @@
+
+Store
+- Categories
+- Coupons
+- User Ratings
+- Payment via PayPal and Xsolla or Stripe
+General
+- Authentication via Email/Password and OAuth
+Blog
+- Categories
+Forum
+- Threads
+- Posts
+
+
+Translations
