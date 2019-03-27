@@ -4,6 +4,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
+import debug_toolbar
+
+import spirit.urls
 
 from . import views
 
@@ -14,9 +17,13 @@ handler500 = views.handler500
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home_page'),
 
+    path('forum/', include(spirit.urls)),
+
     path('store/', include('store.urls')),
 
     path('admin/', admin.site.urls),
+
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
 
 

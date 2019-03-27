@@ -3,7 +3,7 @@ from django.views.generic import View, ListView
 
 from django.db.models import Avg
 
-from .models import StoreItem, Category, Coupon, UserRating
+from .models import StoreItem, Category, Coupon
 
 class StoreHomeView(ListView):
     model = StoreItem
@@ -12,21 +12,17 @@ class StoreHomeView(ListView):
 
     # could probably zip this list with the average_ratings list...
     def get_queryset(self, *args, **kwargs):
-        return get_list_or_404(StoreItem.objects.order_by('price'), visible=True)
+        return get_list_or_404(StoreItem.objects.order_by('price'), is_visible=True)
 
 
 class StoreItemView(View):
     template_name = 'store/store-item-page.html'
 
     def get(self, request, slug):
-        item = get_object_or_404(StoreItem.objects.filter(visible=True, slug=slug))
-        users_rated = UserRating.objects.filter(item=item).count()
-        average_rating = UserRating.objects.filter(item=item).aggregate(Avg('rating'))
+        item = get_object_or_404(StoreItem.objects.filter(is_visible=True, slug=slug))
 
         return render(request, self.template_name, {
             'item': item, 
-            'users_rated': users_rated,
-            'average_rating': average_rating
         })
 
 
@@ -37,4 +33,4 @@ class StoreItemCategoryView(ListView):
 
     def get_queryset(self, *args, **kwargs):
         category = get_object_or_404(Category.objects.filter(slug=self.kwargs['slug']))
-        return get_list_or_404(StoreItem.objects.filter(category=category, visible=True))
+        return get_list_or_404(StoreItem.objects.filter(category=category, is_visible=True))

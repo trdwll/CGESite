@@ -53,44 +53,33 @@
             <li class="nav-item dropdown dropdown-cart d-block">
                 <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-shopping-cart"></i>
-                    <span class="badge badge-warning"></span>
+                    {% if cart %}<span class="badge badge-warning"></span>{% endif %}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right bg-white">
-                    <div class="dropdown-header mb-0"><i class="fas fa-shopping-cart"></i> Cart (3)</div>
+                    <div class="dropdown-header mb-0"><i class="fas fa-shopping-cart"></i> Cart ({% if cart %}{{ cart.items.count }}{% else %}0{% endif %})</div>
                     <div class="dropdown-scrollable">
                         <ul class="dropdown-list">
+                            {% if cart and cart.items %}
+                            {% for item in cart.items.all %}
                             <li class="dropdown-list-item">
-                                <img class="mr-1" src="https://static.giantbomb.com/uploads/scale_small/0/1992/3023135-screen+shot+2018-05-23+at+7.03.13+pm.png" alt="">
+                                <img class="mr-1" src="{{ item.image.url }}" alt="">
                                 <div class="pl-2">
-                                    <a class="font-weight-semibold" href="shop-product.html">Battlefield V</a>
-                                    <div class="font-size-md text-muted">Quantity: 1</div>
-                                    <div class="font-size-md font-weight-bold mt-1">$75.00</div>
+                                    <a class="font-weight-semibold" href="shop-product.html">{{ item.title }}</a>
+                                    <div class="font-size-md font-weight-bold mt-1">${{ item.price }}</div>
                                 </div>
                                 <button type="button" class="btn btn-link cart-remove"><i class="fas fa-trash"></i></button>
                             </li>
+                            {% endfor %}
+                            {% else %}
                             <li class="dropdown-list-item">
-                                <img class="mr-1" src="https://static.giantbomb.com/uploads/scale_small/11/118833/2996375-91somf876vl._sl1500_.jpg" alt="">
-                                <div class="pl-2">
-                                    <a class="font-weight-semibold" href="shop-product.html">God of War</a>
-                                    <div class="font-size-md text-muted">Quantity: 1</div>
-                                    <div class="font-size-md font-weight-bold text-danger mt-1">$49.35</div>
-                                </div>
-                                <button type="button" class="btn btn-link cart-remove"><i class="fas fa-trash"></i></button>
+                            No Items in Cart
                             </li>
-                            <li class="dropdown-list-item">
-                                <img class="mr-1" src="https://static.giantbomb.com/uploads/scale_small/0/3699/2945734-the+witcher+3+-+wild+hunt.jpg" alt="">
-                                <div class="pl-2">
-                                    <a class="font-weight-semibold" href="shop-product.html">The Witcher 3: Wild Hunt</a>
-                                    <div class="font-size-md text-muted">Quantity: 1</div>
-                                    <div class="font-size-md font-weight-bold mt-1">$28.15</div>
-                                </div>
-                                <button type="button" class="btn btn-link cart-remove"><i class="fas fa-trash"></i></button>
-                            </li>
+                            {% endif %}
                         </ul>
                     </div>
                     <div class="dropdown-footer bg-lighten pt-0 pb-2 px-0">
                         <div class="d-flex border-bottom mb-2 px-3 py-2">
-                            Total: <span class="ml-auto font-weight-bold text-danger">$149.55</span>
+                            Total: <span class="ml-auto font-weight-bold text-danger">${% if cart and cart.items %}{{ cart.total_price }}{% else %}0{% endif %}</span>
                         </div>
                         <div class="d-flex px-3">
                             <a class="btn btn-outline btn-sm" href="shop-cart.html">View Cart</a>
