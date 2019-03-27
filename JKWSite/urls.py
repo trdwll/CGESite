@@ -6,9 +6,10 @@ from django.views.generic import TemplateView
 
 import debug_toolbar
 
-import spirit.urls
+from machina.app import board
 
 from . import views
+from users.views import LoginView, RegisterView
 
 handler404 = views.handler404
 handler500 = views.handler500
@@ -17,9 +18,15 @@ handler500 = views.handler500
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home_page'),
 
-    path('forum/', include(spirit.urls)),
-
+    path('forum/', include(board.urls)),
     path('store/', include('store.urls')),
+
+    path('auth/login/', LoginView.as_view(), name='login'),
+    path('auth/register/', RegisterView.as_view(), name='register'),
+    #path('auth/recover/', RecoverView.as_view(), name='user_recover_page'),
+    #path('auth/recover/step2/', RecoverTokenView.as_view(), name='user_token_page'),
+
+    path('auth/', include('social_django.urls', namespace='social')),
 
     path('admin/', admin.site.urls),
 

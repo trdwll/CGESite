@@ -11,17 +11,3 @@ class SiteAdmin(admin.ModelAdmin):
         return not HomeData.objects.exists()
 
 admin.site.register(HomeData, SiteAdmin)
-
-
-
-# Forum/Spirit specific admin
-
-from spirit.category.models import Category
-from spirit.comment.models import Comment
-from spirit.topic.models import Topic
-from spirit.user.models import UserProfile
-
-admin.site.register(Category)
-admin.site.register(Comment)
-admin.site.register(Topic)
-admin.site.register(UserProfile)

@@ -1,16 +1,15 @@
 
 Store
-- Categories
-- Coupons
-- User Ratings
+- User Ratings/Reviews
 - Payment via PayPal and Xsolla or Stripe
 General
 - Authentication via Email/Password and OAuth
 Blog
 - Categories
 Forum
-- Threads
-- Posts
-
+- Style the forum to match the actual design
 
 Translations
+
+
+Google Captcha
