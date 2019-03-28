@@ -3,7 +3,11 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<section class="py-lg-5">
+
+
+
+
+<section class="py-lg-5" ya-background="https://vimeo.com/300249379" ya-option="loop: true;mute: true;controls: 0;opacity: .4;quality: 4k" ya-style="background-color: #464242">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 mx-auto">
@@ -30,7 +34,15 @@
                                 </div>
                             </div>
                             <div class="separator"><span>or</span></div>
-                            <div class="form-group">
+                            {% for field in form %}
+                            <div class="form-group {% if field.errors %} has-danger{% endif %}">
+                                {% if field.errors %}<strong>{{ field.errors }}</strong>{% endif %}
+                                <i class="{{ field.name|lower }}"></i>
+                                {{ field }}
+                                {% if field.help_text %}<small id="{{ field.label }}help" class="form-text">{{ field.help_text }}</small>{% endif %}
+                            </div>
+                            {% endfor %}
+                            {% comment %} <div class="form-group">
                                 <label for="username">Username</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -57,7 +69,7 @@
                                     <label for="repeat-password">Repeat Password</label>
                                     <input type="password" class="form-control" id="repeat-password" placeholder="Enter password" required>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                             <div class="form-group">
                                 <h6 class="mb-3">Terms of service</h6>
                                 <div class="form-box" style="height: 180px;">
