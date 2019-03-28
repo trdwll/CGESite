@@ -162,6 +162,14 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
 ]
 
+MESSAGE_TAGS = {
+    message_constants.DEBUG: 'alert-danger',
+    message_constants.INFO: 'alert-info',
+    message_constants.SUCCESS: 'alert-success',
+    message_constants.WARNING: 'alert-warning',
+    message_constants.ERROR: 'alert-danger'
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -190,6 +198,7 @@ MEDIA_URL = '/media/'
 FILE_UPLOAD_PERMISSIONS = 0o644
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/login/'
 CSRF_COOKIE_NAME = 'jkhasjdhjaksdh'
 
@@ -223,6 +232,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.twitch.TwitchOAuth2', # for Twitch authentication
     'social_core.backends.discord.DiscordOAuth2', # for Discord authentication
 
+    #'users.backends.CaseInsensitiveModelBackend',
     'django.contrib.auth.backends.ModelBackend', # Default Django authentication (username/password)
 )
 

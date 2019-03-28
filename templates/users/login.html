@@ -7,6 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-md-6 col-lg-4 mx-auto">
+                {% include '_messages.html' %}
                 <div class="card mb-0 border-0">
                     <div class="card-header">
                         <h5 class="card-title">Login to your account</h5>
@@ -17,15 +18,25 @@
                         <a href="{% url 'social:begin' 'discord' %}" class="btn btn-social btn-discord btn-block mb-2 mb-lg-0"><i class="ya ya-discord"></i> Login with Discord</a>
                         <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-social btn-twitter btn-block"><i class="ya ya-twitter"></i> Login with Twitter</a>
                         <div class="separator"><span>or</span></div>
-                        <form action="#">
-                            <input type="username_email" class="form-control mb-2" placeholder="Enter Username or Email">
-                            <input type="password" class="form-control mb-3" placeholder="Password">
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            <div class="form-group m-b-15{% if field.errors %} has-danger{% endif %}">
+                                {% if field.errors %}<strong>{{ field.errors }}</strong>{% endif %}
+                                {{ field }}
+                                {% if field.help_text %}<small id="{{ field.label }}help" class="form-text">{{ field.help_text }}</small>{% endif %}
+                            </div>
+                            {% endfor %}
+
                             <div class="form-group form-check custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="check">
                                 <label class="custom-control-label" for="check">Remember me</label>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </form>
+
+
                         <div class="separator mt-4"><span>Don't have an account?</span></div>
                         <a class="btn btn-default btn-block" href="{% url 'register' %}" role="button">Register</a>
                     </div>

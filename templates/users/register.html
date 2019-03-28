@@ -3,15 +3,12 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-
-
-
-
 <section class="py-lg-5" ya-background="https://vimeo.com/300249379" ya-option="loop: true;mute: true;controls: 0;opacity: .4;quality: 4k" ya-style="background-color: #464242">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 mx-auto">
-                <form>
+               {% include '_messages.html' %}
+                <form method="POST">
                     <div class="card mb-4">
                         <div class="card-header">
                             <h5 class="card-title">Create a new account</h5>
@@ -34,14 +31,16 @@
                                 </div>
                             </div>
                             <div class="separator"><span>or</span></div>
+
+                            {% csrf_token %}
                             {% for field in form %}
                             <div class="form-group {% if field.errors %} has-danger{% endif %}">
                                 {% if field.errors %}<strong>{{ field.errors }}</strong>{% endif %}
-                                <i class="{{ field.name|lower }}"></i>
                                 {{ field }}
                                 {% if field.help_text %}<small id="{{ field.label }}help" class="form-text">{{ field.help_text }}</small>{% endif %}
                             </div>
                             {% endfor %}
+
                             {% comment %} <div class="form-group">
                                 <label for="username">Username</label>
                                 <div class="input-group">
@@ -98,8 +97,8 @@
                                 </div>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="terms">
-                                <label class="custom-control-label" for="terms">Accept terms of service</label>
+                                <input type="checkbox" class="custom-control-input" id="tos_agree" name="tos_agree">
+                                <label class="custom-control-label" for="tos_agree">Accept terms of service</label>
                             </div>
                         </div>
                         <div class="card-footer">

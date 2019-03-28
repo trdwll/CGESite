@@ -9,7 +9,7 @@ class LoginForm(forms.Form):
         widget=forms.TextInput(attrs={
             'class': 'form-control form-control-secondary',
             'placeholder': 'Username'
-        }), min_length=4, label='Username', required=True, help_text='The username of your account.')
+        }), min_length=2, label='Username', required=True, help_text='The username of your account.')
 
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
@@ -30,7 +30,7 @@ class RegisterForm(forms.Form):
         widget=forms.TextInput(attrs={
             'class': 'form-control form-control-secondary',
             'placeholder': 'Username'
-        }), min_length=4, label='Username', required=True, help_text='Username that will be displayed around the website.')
+        }), min_length=2, label='Username', required=True, help_text='Username that will be displayed around the website.')
 
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={

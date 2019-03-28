@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.contrib.auth.views import LogoutView
 
 import debug_toolbar
 
@@ -23,6 +24,7 @@ urlpatterns = [
 
     path('auth/login/', LoginView.as_view(), name='login'),
     path('auth/register/', RegisterView.as_view(), name='register'),
+    path('auth/logout/', LogoutView.as_view(next_page='/'), name='logout'),
     #path('auth/recover/', RecoverView.as_view(), name='user_recover_page'),
     #path('auth/recover/step2/', RecoverTokenView.as_view(), name='user_token_page'),
 
