@@ -1,0 +1,41 @@
+{% extends '_base.html' %}
+
+{% block title %}Blog Categories{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row row-md">
+            
+            {% for post in posts %}
+            <div class="col-sm-6 col-md-4">
+                <div class="card card-sm mb-4">
+                    <a class="card-img card-img-lg" href="{{ post.get_absolute_url }}">
+                        <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                        </h5>
+                        {% load general_tags %}
+                        <p class="card-text font-size-md">{{ post.body|truncatewords:20|markdown|striptags }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <span><i class="ya ya-calendar"></i> {{ post.published_date }}</span>
+                        {% comment %} <div class="ml-auto">
+                            <a href="#"><i class="ya ya-comment"></i> 675</a>
+                            <a class="ml-1" href="#"><i class="ya ya-heart-o"></i> 49</a>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+                <!-- end .card -->
+            </div>
+            {% endfor %}
+            
+        </div>
+        
+        {% include '_pagination.html' with base_path='/blog/category/'|add:view.kwargs.slug|add:'/' %}
+
+    </div>
+</section>
+{% endblock %}

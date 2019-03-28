@@ -1,3 +1,8 @@
+"""
+Copyright 2019 Film And Music Inc. All Rights Reserved.
+Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
+""" 
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -20,6 +25,7 @@ urlpatterns = [
     path('', views.HomeView.as_view(), name='home_page'),
 
     path('forum/', include(board.urls)),
+    path('blog/', include('blog.urls')),
     path('store/', include('store.urls')),
 
     path('auth/login/', LoginView.as_view(), name='login'),

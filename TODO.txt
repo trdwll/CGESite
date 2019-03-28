@@ -1,15 +1,33 @@
 
 Store
-- User Ratings/Reviews
 - Payment via PayPal and Xsolla or Stripe
-General
-- Authentication via Email/Password and OAuth
-Blog
-- Categories
 Forum
 - Style the forum to match the actual design
 
 Translations
-
-
 Google Captcha
+
+django-crispy-forms?
+django-extra-views?
+
+
+
+Go through and clean up all code and document it.
+
+
+
+Future Features (not confirmed/just thoughts)
+
+Store
+- User Ratings/Reviews
+Blog
+- Like/Dislike posts
+- Comment on posts
+- estimated time to read
+- author
+- upload images directly in textfield
+
+General
+- breadcrumbs
+- subscribe to newsletter
+

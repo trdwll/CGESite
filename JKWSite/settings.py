@@ -1,3 +1,8 @@
+"""
+Copyright 2019 Film And Music Inc. All Rights Reserved.
+Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
+""" 
+
 import os
 
 from django.contrib.messages import constants as message_constants
@@ -45,6 +50,7 @@ INSTALLED_APPS = [
     'django_otp.plugins.otp_totp',
     'debug_toolbar',
     'social_django',
+    'taggit',
 
     # Machina related apps:
     'mptt',
@@ -232,7 +238,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.twitch.TwitchOAuth2', # for Twitch authentication
     'social_core.backends.discord.DiscordOAuth2', # for Discord authentication
 
-    #'users.backends.CaseInsensitiveModelBackend',
+    'users.backends.CaseInsensitiveModelBackend',
     'django.contrib.auth.backends.ModelBackend', # Default Django authentication (username/password)
 )
 

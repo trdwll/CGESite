@@ -1,3 +1,8 @@
+"""
+Copyright 2019 Film And Music Inc. All Rights Reserved.
+Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
+""" 
+
 from django.shortcuts import render, render_to_response, get_object_or_404, get_list_or_404
 from django.views.generic import View, ListView
 

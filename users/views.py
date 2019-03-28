@@ -1,3 +1,8 @@
+"""
+Copyright 2019 Film And Music Inc. All Rights Reserved.
+Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
+""" 
+
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login

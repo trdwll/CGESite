@@ -1,0 +1,180 @@
+{% extends '_base.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<section class="py-lg-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                {% comment %} <div class="d-md-flex mb-4">
+                    <div class="dropdown mr-md-2 mb-2 mb-sm-0">
+                        <button class="btn btn-light btn-icon-left dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="ya ya-tag"></i> All categories
+                        </button>
+                        <div class="dropdown-menu dropdown-height">
+                            <a class="dropdown-item active" href="#">All categories</a>
+                            <a class="dropdown-item" href="#">Playstation 4</a>
+                            <a class="dropdown-item" href="#">Xbox One</a>
+                        </div>
+                    </div>
+                    <div class="dropdown mr-auto mb-2 mb-sm-0">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Recent posts
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item active" href="#">Recent</a>
+                            <a class="dropdown-item" href="#">Oldest</a>
+                            <a class="dropdown-item" href="#">Popular</a>
+                            <a class="dropdown-item" href="#">Most Comments</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon-left dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Descending
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item active" href="#">Descending</a>
+                            <a class="dropdown-item" href="#">Ascending</a>
+                            <a class="dropdown-item" href="#">Random</a>
+                        </div>
+                    </div>
+                    <div class="btn-group ml-md-2" role="group">
+                        <button type="button" class="btn btn-light"><i class="ya ya-list m-0"></i></button>
+                        <button type="button" class="btn btn-light"><i class="ya ya-table m-0"></i></button>
+                    </div>
+                </div> {% endcomment %}
+                {% load general_tags %}
+                {% for post in posts %}
+                <div class="post post-medium">
+                    <div class="post-thumbnail">
+                        <img class="post-img" src="{{ post.image.url }}" alt="{{ post.body|truncatewords:5|markdown|striptags }}">
+                    </div>
+                    <div class="post-body">
+                        <h2 class="post-title h4"><a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords:8 }}</a></h2>
+                        <div class="post-meta">
+                            <span class="post-meta-item"><i class="ya ya-calendar"></i> {{ post.published_date }}</span>
+                        </div>
+                        <p>{{ post.body|truncatewords:55|markdown|striptags }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                
+               {% include '_pagination.html' with base_path='/blog/' %}
+            </div>
+            <div class="col-lg-3">
+                {% comment %} <div class="widget">
+                    <form action="search.html">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search blog...">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-light border-left-0"><i class="ya ya-search m-0"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div> {% endcomment %}
+                <!-- end widget -->
+                {% if random_post %}
+                <div class="widget">
+                    <div class="widget-header">Random Post</div>
+                    <a class="img-cover img-sm mb-3" href="{{ random_post.get_absolute_url }}">
+                        <img src="{{ random_post.image.url }}" alt="{{ random_post.body|truncatewords:5|markdown|striptags }}">
+                    </a>
+                    <div class="widget-body">
+                        <h5 class="h6"><a href="{{ random_post.get_absolute_url }}">{{ random_post.title|truncatewords:6 }}</a></h5>
+                        <div class="font-size-md font-weight-semibold text-muted mb-2"><i class="ya ya-calendar mr-1"></i> {{ random_post.published_date }}</div>
+                        <p>{{ random_post.body|truncatewords:10|markdown|striptags }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- end widget -->
+                <div class="widget widget-secondary">
+                    <div class="widget-header border-0">Categories</div>
+                    <div class="list-group list-group-flush">
+                        {% for category in categories %}
+                        <a class="list-group-item" href="{{ category.get_absolute_url }}">{{ category.title }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% comment %}
+                <!-- end widget -->
+                <div class="widget mb-0">
+                    <div class="widget-header">Popular on Gameforest</div>
+                    <a class="img-cover img-sm mb-3" href="blog-post.html">
+                        <img src="https://img.youtube.com/vi/v2YvZCjieR0/maxresdefault.jpg" alt="">
+                    </a>
+                    <div class="widget-body">
+                        <h5 class="h6"><a href="blog-post.html">The Witcher 3: Don't Miss This Hidden Contract in Blood and Wine</a></h5>
+                        <div class="font-size-md font-weight-semibold text-muted mb-2"><i class="ya ya-calendar mr-1"></i> August 29, 2018</div>
+                        <p class="mb-2">Lose eyes get fat shew. Winter can indeed letter oppose way change tended now. So is improve my charmed picture exposed ...</p>
+                    </div>
+                </div>
+                <!-- end widget -->
+                <div class="widget widget-list">
+                    <div class="media">
+                        <a class="img-cover" href="#">
+                            <img src="https://img.youtube.com/vi/PfQ8cOyuE1A/maxresdefault.jpg" alt="">
+                        </a>
+                        <div class="media-body">
+                            <h6><a href="#" title="Battle royale games explained what could be the next big hit">Battle royale games explained what could...</a></h6>
+                            <div class="font-size-sm font-weight-semibold text-muted">September 10, 2018</div>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="img-cover" href="#">
+                            <img src="https://img.youtube.com/vi/gJ56BJ-Ba9E/maxresdefault.jpg" alt="">
+                        </a>
+                        <div class="media-body">
+                            <h6><a href="#" title="BioWare's Anthem Shows An Exciting New Direction For The Studio">BioWare's Anthem Shows An Exciting New D...</a></h6>
+                            <div class="font-size-sm font-weight-semibold text-muted">September 05, 2018</div>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="img-cover" href="#">
+                            <img src="https://img.youtube.com/vi/SG4hoev5uaI/maxresdefault.jpg" alt="">
+                        </a>
+                        <div class="media-body">
+                            <h6><a href="#" title="New Red Dead Redemption 2 Character Art Appears As Massive Billboards">New Red Dead Redemption 2 Character Art ...</a></h6>
+                            <div class="font-size-sm font-weight-semibold text-muted">September 10, 2018</div>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="img-cover" href="#">
+                            <img src="https://img.youtube.com/vi/v2YvZCjieR0/maxresdefault.jpg" alt="">
+                        </a>
+                        <div class="media-body">
+                            <h6><a href="#" title="The Witcher 3: Don't Miss This Hidden Contract in Blood and Wine">The Witcher 3: Don't Miss This Hidden Co...</a></h6>
+                            <div class="font-size-sm font-weight-semibold text-muted">August 29, 2018</div>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="img-cover" href="#">
+                            <img src="https://img.youtube.com/vi/IzltYVmocOM/maxresdefault.jpg" alt="">
+                        </a>
+                        <div class="media-body">
+                            <h6><a href="#" title="Prey Adds A Horrifying Take On Hide-And-Seek This Summer">Prey Adds A Horrifying Take On Hide-And-...</a></h6>
+                            <div class="font-size-sm font-weight-semibold text-muted">August 23, 2018</div>
+                        </div>
+                    </div>
+                    <a class="btn btn-outline btn-block btn-sm mt-2" href="#" role="button">Load More</a>
+                </div>
+                <!-- end widget -->
+                <div class="widget widget-tags">
+                    <div class="widget-header">Popular Tags</div>
+                    <div class="tags">
+                        <a href="#">#playstation4</a>
+                        <a href="#">#anthem</a>
+                        <a href="#">#fps</a>
+                        <a href="#">#upcoming</a>
+                        <a href="#">#gameforest</a>
+                        <a href="#">#xbox</a>
+                        <a href="#">#gameplay</a>
+                        <a href="#">#red-dead</a>
+                    </div>
+                </div>
+                <!-- end widget --> {% endcomment %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
