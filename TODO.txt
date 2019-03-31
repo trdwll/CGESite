@@ -7,6 +7,10 @@ Forum
 Translations
 Google Captcha
 
+Gemeral
+- Disconnect user accounts
+
+
 django-crispy-forms?
 django-extra-views?
 
@@ -26,8 +30,11 @@ Blog
 - estimated time to read
 - author
 - upload images directly in textfield
+Forum
+- Pagination via /page/<int>/
 
 General
 - breadcrumbs
 - subscribe to newsletter
+- sitewide searching
 

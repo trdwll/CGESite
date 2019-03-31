@@ -1,0 +1,152 @@
+{% load i18n %}
+{% load mptt_tags %}
+{% load forum_tags %}
+{% load forum_conversation_tags %}
+{% load forum_tracking_tags %}
+
+
+<section class="pt-lg-5">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				{% if forum_contents.nodes %}
+				{% recurseforumcontents forum_contents %}
+				{% if node.level == root_level %}
+				{% if node.obj.is_category %}
+				<h6 class="subtitle font-size-md"><a href="{% url 'forum:forum' node.obj.slug node.obj.id %}">{{ node.obj.name }}</a></h6>
+				<table class="table table-bordered table-dashed mb-5">
+					<thead>
+						<tr>
+							<th class="d-none d-md-table-cell" style="width: 5%;" scope="col"></th>
+							<th scope="col">{% trans "Forums" %}</th>
+							<th class="text-center" style="width: 5%" scope="col">{% trans "Topics" %}</th>
+							<th class="d-none d-sm-table-cell text-center" style="width: 5%" scope="col">{% trans "Posts" %}</th>
+							<th class="d-none d-lg-table-cell" style="width: 25%" scope="col">{% trans "Last post" %}</th>
+						</tr>
+					</thead>
+					<tbody>
+					{{ children }}
+					</tbody>
+					</table>
+					{% else %}
+					{% with node.previous_sibling.obj as previous_sibling %}
+					{% if previous_sibling and previous_sibling.is_category or not previous_sibling in forum_contents.visible_forums or not previous_sibling %}
+					<thead>
+						<tr>
+							<th class="d-none d-md-table-cell" style="width: 5%;" scope="col"></th>
+							<th scope="col">{% trans "Forums" %}</th>
+							<th class="text-center" style="width: 5%" scope="col">{% trans "Topics" %}</th>
+							<th class="d-none d-sm-table-cell text-center" style="width: 5%" scope="col">{% trans "Posts" %}</th>
+							<th class="d-none d-lg-table-cell" style="width: 25%" scope="col">{% trans "Last post" %}</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% endif %}
+					{% endwith %}
+							{% if not node.obj.is_link %}
+							<tr>
+								<td class="d-none d-md-table-cell table-icon">
+									<i class="fas fa-comments"></i>
+								</td>
+								<td>
+									<h6 class="table-title"><a href="{% url 'forum:forum' node.obj.slug node.obj.id %}">{{ node.obj.name }}</a></h6>
+									<p class="table-text">{{ node.obj.description.rendered }}</p>
+								</td>
+								<td class="text-center">{{ node.topics_count }}</td>
+								<td class="d-none d-sm-table-cell text-center">{{ node.posts_count }}</td>
+								<td class="d-none d-lg-table-cell">
+								{% if node.last_post %}
+								<a class="table-subtitle" href="{% url 'forum_conversation:topic' node.obj.slug node.obj.pk node.last_post.topic.slug node.last_post.topic.pk %}?post={{ node.last_post.pk }}#{{ node.last_post.pk }}">{{ node.last_post.topic }}</a>
+								{% if node.last_post.poster %}
+								<div class="table-meta">
+									{{ node.last_post.created }} &bull;
+								{% url 'forum_member:profile' node.last_post.poster_id as poster_url %}
+								{% blocktrans trimmed with poster_url=poster_url username=node.last_post.poster.username %}
+									<a href="{{ poster_url }}">{{ username }}</a>
+								{% endblocktrans %}
+								{% else %}
+								{% blocktrans trimmed with poster_username=node.last_post.username %}
+									<a href="#">{{ poster_username }}</a>
+								{% endblocktrans %}
+								{% endif %}
+								</div>
+								{% else %}
+									{% trans "No posts" %}
+								{% endif %}
+								</td>
+							</tr>
+						{% else %}
+								<tr>
+									<td class="d-none d-md-table-cell table-icon">
+										<i class="fas fa-link"></i>
+									</td>
+									<td>
+										<a href="{% url 'forum:forum' node.obj.slug node.obj.id %}" class="forum-name-link">{{ node.obj.name }}</a>
+										<div class="forum-description">{{ node.obj.description.rendered }}</div>
+									</td>
+									<td></td>
+									<td></td>
+								</tr>
+							
+						{% endif %}
+					{% endif %}
+					{% elif node.level == root_level_middle %}
+					{% if node.parent.obj.is_category %}
+					{% if not node.obj.is_link %}
+						<tr>
+							<td class="d-none d-md-table-cell table-icon">
+								<i class="fas fa-comments"></i>
+							</td>
+							<td>
+								<h6 class="table-title"><a href="{% url 'forum:forum' node.obj.slug node.obj.id %}">{{ node.obj.name }}</a></h6>
+								<p class="table-text">{{ node.obj.description.rendered }}</p>
+							</td>
+							<td class="text-center">{{ node.topics_count }}</td>
+							<td class="d-none d-sm-table-cell text-center">{{ node.posts_count }}</td>
+							<td class="d-none d-lg-table-cell">
+							{% if node.last_post %}
+							<a class="table-subtitle" href="{% url 'forum_conversation:topic' node.obj.slug node.obj.pk node.last_post.topic.slug node.last_post.topic.pk %}?post={{ node.last_post.pk }}#{{ node.last_post.pk }}">{{ node.last_post.topic }}</a>
+							{% if node.last_post.poster %}
+							<div class="table-meta">
+								{{ node.last_post.created }} &bull;
+							{% url 'forum_member:profile' node.last_post.poster_id as poster_url %}
+							{% blocktrans trimmed with poster_url=poster_url username=node.last_post.poster.username %}
+								<a href="{{ poster_url }}">{{ username }}</a>
+							{% endblocktrans %}
+							{% else %}
+							{% blocktrans trimmed with poster_username=node.last_post.username %}
+								<a href="#">{{ poster_username }}</a>
+							{% endblocktrans %}
+							{% endif %}
+							</div>
+							{% else %}
+								{% trans "No posts" %}
+							{% endif %}
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td class="d-none d-md-table-cell table-icon">
+								<i class="fas fa-link"></i>
+							</td>
+							<td>
+								<a href="{% url 'forum:forum' node.obj.slug node.obj.id %}" class="forum-name-link">{{ node.obj.name }}</a>
+								<div class="forum-description">{{ node.obj.description.rendered }}</div>
+							</td>
+							<td></td>
+							<td></td>
+						</tr>
+					{% endif %}
+					
+					{% endif %}
+					{% endif %}
+
+
+					{% endrecurseforumcontents %}
+					
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+

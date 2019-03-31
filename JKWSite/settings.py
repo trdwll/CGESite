@@ -8,7 +8,6 @@ import os
 from django.contrib.messages import constants as message_constants
 
 from machina import get_apps as get_machina_apps
-from machina import MACHINA_MAIN_TEMPLATE_DIR
 from machina import MACHINA_MAIN_STATIC_DIR
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -88,7 +87,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            MACHINA_MAIN_TEMPLATE_DIR,
+            os.path.join(BASE_DIR, 'templates/machina'), # custom design for machina
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -193,7 +192,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    MACHINA_MAIN_STATIC_DIR
+    MACHINA_MAIN_STATIC_DIR # might not need this....
   #  '/var/www/mydomain.com/public_html/static/',
 ]
 
@@ -222,7 +221,7 @@ MACHINA_ATTACHMENT_FILE_UPLOAD_TO = 'forum/attachments'
 MACHINA_PROFILE_AVATAR_UPLOAD_TO = 'forum/avatars'
 MACHINA_TOPIC_ANSWER_SUBJECT_PREFIX = ''
 MACHINA_TOPIC_POSTS_NUMBER_PER_PAGE = 20
-MACHINA_BASE_TEMPLATE_NAME = 'forum/_base.html'
+MACHINA_BASE_TEMPLATE_NAME = 'machina/_base.html'
 
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LcDeJoUAAAAAF7ASXpcAoY9SpGxRKLhKVlBUtQ5'
