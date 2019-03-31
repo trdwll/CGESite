@@ -9,7 +9,7 @@ Google Captcha
 
 Gemeral
 - Disconnect user accounts
-
+- Settings (update email/password/avatar etc)
 
 django-crispy-forms?
 django-extra-views?
@@ -28,7 +28,7 @@ Blog
 - Like/Dislike posts
 - Comment on posts
 - estimated time to read
-- author
+- author display
 - upload images directly in textfield
 Forum
 - Pagination via /page/<int>/
@@ -38,3 +38,7 @@ General
 - subscribe to newsletter
 - sitewide searching
 
+
+Later on
+Forum
+- Add icons to each forum section (custom)

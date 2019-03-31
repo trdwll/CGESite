@@ -35,8 +35,8 @@
 			{% endif %}
 		</p>
 	</td>
-	<td class="text-center">327</td>
-	<td class="d-none d-sm-table-cell text-center">64</td>
+	<td class="text-center">{{ topic.posts_count|add:"-1" }}</td>
+	<td class="d-none d-sm-table-cell text-center">{{ topic.views_count }}</td>
 	<td class="d-none d-lg-table-cell">
 	{% with last_post=topic.last_post %}
 	{% if last_post.poster %}
