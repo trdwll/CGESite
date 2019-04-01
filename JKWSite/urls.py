@@ -47,7 +47,7 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-admin.site.site_header = 'JKW Productions Inc AdminCP'
-admin.site.site_title = 'JKW Productions Inc AdminCP'
+admin.site.site_header = 'Film And Music Inc AdminCP'
+admin.site.site_title = 'Film And Music Inc AdminCP'
 
 # admin.site.__class__ = OTPAdminSite

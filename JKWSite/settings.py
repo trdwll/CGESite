@@ -102,6 +102,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'store.context_processors.store_processors',
+                'JKWSite.context_processors.general_processors',
 
                 'machina.core.context_processors.metadata',
 
@@ -207,12 +208,12 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/login/'
 CSRF_COOKIE_NAME = 'jkhasjdhjaksdh'
 
-SITE_TITLE = 'JKW Productions'
+SITE_TITLE = 'Film'
 NO_REPLY_EMAIL = 'no-reply@mydomain.com'
 
-HTML_MINIFY = False
+HTML_MINIFY = True
 
-OTP_TOTP_ISSUER = 'JKW Productions Inc'
+OTP_TOTP_ISSUER = 'Film Inc'
 
 # Machina Settings (forum module)
 MACHINA_FORUM_NAME = 'FreeDome'
