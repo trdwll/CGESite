@@ -11,13 +11,8 @@ Gemeral
 - Disconnect user accounts
 - Settings (update email/password/avatar etc)
 
-django-crispy-forms?
-django-extra-views?
-
-
 
 Go through and clean up all code and document it.
-
 
 
 Future Features (not confirmed/just thoughts)
