@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     # 3rd party apps
     'django_otp',
     'django_otp.plugins.otp_totp',
-    'debug_toolbar',
     'social_django',
     'taggit',
 
@@ -196,7 +195,6 @@ STATICFILES_DIRS = [
     MACHINA_MAIN_STATIC_DIR # might not need this....
   #  '/var/www/mydomain.com/public_html/static/',
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # MEDIA_ROOT = '/var/www/mydomain.com/public_html/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
