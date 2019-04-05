@@ -13,3 +13,4 @@ readtime
 psycopg2
 gitpython
 uwsgi
+mysqlclient

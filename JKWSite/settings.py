@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     # Our apps
     'JKWSite',
     'blog',
-    'store',
     'users',
 
     # 3rd party apps
@@ -118,19 +117,20 @@ WSGI_APPLICATION = 'JKWSite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'jkw',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'temp1234',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'fam',
+        'USER': 'famuser',
+        'PASSWORD': '',
+        'HOST': 'server.dev.trdwll.com',
+        'PORT': '3306',
+    }
 }
 
 CACHES = {
