@@ -1,9 +1,0 @@
-[submodule "vendor/bootstrap"]
-	path = vendor/bootstrap
-	url = https://github.com/twbs/bootstrap.git
-[submodule "vendor/Font-Awesome-Pro"]
-	path = vendor/Font-Awesome-Pro
-	url = https://github.com/FortAwesome/Font-Awesome-Pro.git
-[submodule "vendor/gameforest"]
-	path = vendor/gameforest
-	url = https://github.com/yakuthemes/gameforest.git
