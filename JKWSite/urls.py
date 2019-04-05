@@ -10,8 +10,6 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 
-import debug_toolbar
-
 from machina.app import board
 
 from . import views
@@ -26,7 +24,6 @@ urlpatterns = [
 
     path('forum/', include(board.urls)),
     path('blog/', include('blog.urls')),
-    path('store/', include('store.urls')),
 
     path('auth/login/', LoginView.as_view(), name='login'),
     path('auth/register/', RegisterView.as_view(), name='register'),

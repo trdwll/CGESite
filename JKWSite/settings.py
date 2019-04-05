@@ -73,8 +73,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_otp.middleware.OTPMiddleware',
 
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-
     'machina.apps.forum_permission.middleware.ForumPermissionMiddleware',
 ]
 
@@ -99,7 +97,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
 
-                'store.context_processors.store_processors',
                 'JKWSite.context_processors.general_processors',
 
                 'machina.core.context_processors.metadata',

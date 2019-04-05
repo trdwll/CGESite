@@ -4,6 +4,7 @@ django-multiselectfield
 django-htmlmin
 django-otp
 django-machina
+django-taggit
 social-auth-app-django
 qrcode
 arrow
