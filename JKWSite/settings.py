@@ -10,6 +10,10 @@ from django.contrib.messages import constants as message_constants
 from machina import get_apps as get_machina_apps
 from machina import MACHINA_MAIN_STATIC_DIR
 
+from oscar.defaults import *
+from oscar import OSCAR_MAIN_TEMPLATE_DIR
+from oscar import get_core_apps
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -35,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
 
     # Our apps
     'JKWSite',
@@ -51,9 +57,12 @@ INSTALLED_APPS = [
 
     # Machina related apps:
     'mptt',
-    'haystack',
+    # 'haystack', # dep of oscar so get_core_apps includes it
     'widget_tweaks',
-] + get_machina_apps()
+] + get_machina_apps() + get_core_apps()
+
+SITE_ID = 1
+
 
 MIDDLEWARE = [
     # Django middleware
@@ -84,6 +93,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'templates/machina'), # custom design for machina
+            OSCAR_MAIN_TEMPLATE_DIR
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -100,6 +110,12 @@ TEMPLATES = [
                 'JKWSite.context_processors.general_processors',
 
                 'machina.core.context_processors.metadata',
+
+                'oscar.apps.search.context_processors.search_form',
+                'oscar.apps.promotions.context_processors.promotions',
+                'oscar.apps.checkout.context_processors.checkout',
+                'oscar.apps.customer.notifications.context_processors.notifications',
+                'oscar.core.context_processors.metadata',
 
                 'social_django.context_processors.backends', # Django Social Auth
                 'social_django.context_processors.login_redirect', # Django Social Auth

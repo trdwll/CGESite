@@ -12,6 +12,8 @@ from django.contrib.auth.views import LogoutView
 
 from machina.app import board
 
+from oscar.app import application
+
 from . import views
 from users.views import LoginView, RegisterView
 
@@ -23,6 +25,8 @@ urlpatterns = [
     path('', views.HomeView.as_view(), name='home_page'),
 
     path('forum/', include(board.urls)),
+    path('store/', application.urls),
+
     path('blog/', include('blog.urls')),
 
     path('auth/login/', LoginView.as_view(), name='login'),
