@@ -5,6 +5,7 @@ django-htmlmin
 django-otp
 django-machina
 django-taggit
+django-oscar
 social-auth-app-django
 qrcode
 arrow
