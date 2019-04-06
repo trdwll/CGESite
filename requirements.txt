@@ -1,11 +1,13 @@
 Django==2.1.7
-django[bcrypt]
+bcrypt
 django-multiselectfield
 django-htmlmin
 django-otp
 django-machina
 django-taggit
 django-oscar
+django-oscar-paypal
+pycountry
 social-auth-app-django
 qrcode
 arrow

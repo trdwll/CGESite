@@ -13,6 +13,7 @@ from django.contrib.auth.views import LogoutView
 from machina.app import board
 
 from oscar.app import application
+from paypal.express.dashboard.app import application as paypal_application
 
 from . import views
 from users.views import LoginView, RegisterView
@@ -26,6 +27,9 @@ urlpatterns = [
 
     path('forum/', include(board.urls)),
     path('store/', application.urls),
+    path('store/checkout/paypal/', include('paypal.express.urls')),
+    path('store/dashboard/paypal/express/', paypal_application.urls),
+    path('i18n/', include('django.conf.urls.i18n')),
 
     path('blog/', include('blog.urls')),
 

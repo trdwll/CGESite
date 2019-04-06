@@ -14,6 +14,8 @@ from oscar.defaults import *
 from oscar import OSCAR_MAIN_TEMPLATE_DIR
 from oscar import get_core_apps
 
+from django.utils.translation import ugettext_lazy as _
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -55,6 +57,8 @@ INSTALLED_APPS = [
     'social_django',
     'taggit',
 
+    'paypal',
+
     # Machina related apps:
     'mptt',
     # 'haystack', # dep of oscar so get_core_apps includes it
@@ -62,6 +66,18 @@ INSTALLED_APPS = [
 ] + get_machina_apps() + get_core_apps()
 
 SITE_ID = 1
+
+OSCAR_DASHBOARD_NAVIGATION.append(
+{
+    'label': _('PayPal'),
+    'icon': 'icon-globe',
+    'children': [
+        {
+            'label': _('Express transactions'),
+            'url_name': 'paypal-express-list',
+        },
+    ]
+})
 
 
 MIDDLEWARE = [
@@ -83,6 +99,8 @@ MIDDLEWARE = [
     'django_otp.middleware.OTPMiddleware',
 
     'machina.apps.forum_permission.middleware.ForumPermissionMiddleware',
+
+    'oscar.apps.basket.middleware.BasketMiddleware',
 ]
 
 ROOT_URLCONF = 'JKWSite.urls'
@@ -286,3 +304,12 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 #SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
+PAYPAL_API_USERNAME = 'russ+fam_api1.trdwll.com'
+PAYPAL_API_PASSWORD = '7DKGX7VZPVE66YWH'
+PAYPAL_API_SIGNATURE = 'AM.mJXg9D4CJVmLuVr1CY6gzeeHIAKpJOOCzPsP2rLQK5vcqiM5B1hPY'
+
+OSCAR_SHOP_NAME = 'FAM Store'
+#OSCAR_SHOP_TAGLINE = 'Demo'
+
+LANGUAGE_CODE = 'en'
