@@ -159,6 +159,7 @@ DATABASES = {
         'USER': 'famuser',
         'PASSWORD': '',
         'HOST': 'server.dev.trdwll.com',
+        #'HOST': 'inline',
         'PORT': '3306',
     }
 }
@@ -225,6 +226,8 @@ STATICFILES_DIRS = [
     MACHINA_MAIN_STATIC_DIR # might not need this....
   #  '/var/www/mydomain.com/public_html/static/',
 ]
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 
 # MEDIA_ROOT = '/var/www/mydomain.com/public_html/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
