@@ -1,24 +1,21 @@
 
-Store
-- Payment via PayPal and Xsolla or Stripe
 Forum
 - Style the forum to match the actual design
 
-Translations
 Google Captcha
 
 Gemeral
 - Disconnect user accounts
 - Settings (update email/password/avatar etc)
+- Recovery of account
 
+Disable Sandbox mode for oscar
 
 Go through and clean up all code and document it.
 
 
 Future Features (not confirmed/just thoughts)
 
-Store
-- User Ratings/Reviews
 Blog
 - Like/Dislike posts
 - Comment on posts
@@ -28,7 +25,9 @@ Blog
 Forum
 - Pagination via /page/<int>/
 
+
 General
+- Translations
 - breadcrumbs
 - subscribe to newsletter
 - sitewide searching

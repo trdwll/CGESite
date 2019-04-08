@@ -3,11 +3,58 @@
 {% block title %}testr{% endblock %}
 
 {% block content %}
-<section id="hero" style="background: url('static/img/index_bg.jpg') top center;">
-    <div class="hero-container">
-        <h1>{{ homedata.title }}</h1>
-        <h2>{{ homedata.tagline }}</h2>
-        <a href="#" class="btn-get-started">Play Now</a>
+{% load general_tags %}
+{% load static %}
+<section class="p-0 overflow-hidden">
+    <div class="owl-carousel" ya-carousel="autoplay: true;height: true">
+        <div class="owl-carousel-item">
+            <img src="{{ homedata.background.url }}" ya-style="opacity: .28" alt="">
+            <div class="owl-caption">
+                <div class="owl-caption-container">
+                    <h1 class="owl-title">{{ homedata.title }}</h1>
+                    <p class="owl-text">{{ homedata.tagline }}</p>
+                    <a class="btn btn-outline-light btn-lg btn-rounded ml-2" href="{{ homedata.video_link }}" ya-lightbox role="button">Watch Trailer</a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+<section class="py-5 py-md-6">
+    <div class="container">
+        <div class="row">
+            <div class="col-11 col-md-8 text-center mx-auto mb-4">
+                <i class="ya ya-ranking icon"></i>
+                <h2 class="font-weight-bold font-size-lg">Recent blog posts.</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for post in posts %}
+            <div class="col-md-4">
+                <div class="card card-sm">
+                    <a class="card-img card-img-lg" href="{{ post.get_absolute_url }}">
+                        <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                        </h5>
+                        <p class="card-tex font-size-md mb-0">{{ post.body|truncatewords:55|markdown|striptags }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <span><i class="ya ya-calendar"></i> {{ post.published_date }}</span>
+                        {% comment %} <div class="ml-auto">
+                            <a href="#"><i class="ya ya-comment"></i> 675</a>
+                            <a class="ml-1" href="#"><i class="ya ya-heart-o"></i> 49</a>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <a class="btn btn-secondary btn-lg mt-3" href="{% url 'blog_home_page' %}" role="button">Browse Blog</a>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

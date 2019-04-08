@@ -240,12 +240,12 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/login/'
 CSRF_COOKIE_NAME = 'jkhasjdhjaksdh'
 
-SITE_TITLE = 'Film'
+SITE_TITLE = 'Film And Music'
 NO_REPLY_EMAIL = 'no-reply@mydomain.com'
 
 HTML_MINIFY = True
 
-OTP_TOTP_ISSUER = 'Film Inc'
+OTP_TOTP_ISSUER = 'Film And Music Inc'
 
 # Machina Settings (forum module)
 MACHINA_FORUM_NAME = 'FreeDome'
