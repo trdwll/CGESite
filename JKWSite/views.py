@@ -22,8 +22,8 @@ class HomeView(View):
 		})
 
 
-class AboutView(View):
-	template_name = 'about-page.html'
+class ContactView(View):
+	template_name = 'contact-page.html'
 
 	def get(self, request):
 		return render(request, self.template_name)

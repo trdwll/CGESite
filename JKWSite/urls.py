@@ -24,7 +24,7 @@ handler500 = views.handler500
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home_page'),
-    path('about/', views.AboutView.as_view(), name='about_page'),
+    path('contact/', views.ContactView.as_view(), name='contact_page'),
 
     path('forum/', include(board.urls)),
     path('store/', application.urls),

@@ -8,6 +8,7 @@ Gemeral
 - Disconnect user accounts
 - Settings (update email/password/avatar etc)
 - Recovery of account
+- Contact
 
 Disable Sandbox mode for oscar
 
@@ -24,8 +25,6 @@ Blog
 - upload images directly in textfield
 Forum
 - Pagination via /page/<int>/
-
-
 General
 - Translations
 - breadcrumbs
