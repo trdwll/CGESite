@@ -107,3 +107,13 @@ class RegisterView(View):
             messages.error(request, 'Something went wrong. Please try again.')
 
         return render(request, self.template_name, {'form': form})
+
+
+class SettingsView(View):
+    template_name = 'users/settings.html'
+
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        return render(request, self.template_name)

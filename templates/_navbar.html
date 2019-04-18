@@ -41,7 +41,7 @@
                     <span class="d-none d-xl-inline-block">Welcome back, {{ request.user.username }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Settings</a>
+                    <a class="dropdown-item" href="{% url 'settings' %}"><i class="fas fa-cog"></i> Settings</a>
                     <a class="dropdown-item" href="/store/accounts/orders/"><i class="fas fa-heart"></i> Purchases</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-logout"></i> Logout</a>

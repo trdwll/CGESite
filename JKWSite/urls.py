@@ -16,7 +16,7 @@ from oscar.app import application
 from paypal.express.dashboard.app import application as paypal_application
 
 from . import views
-from users.views import LoginView, RegisterView
+from users.views import LoginView, RegisterView, SettingsView
 
 handler404 = views.handler404
 handler500 = views.handler500
@@ -37,6 +37,7 @@ urlpatterns = [
     path('auth/login/', LoginView.as_view(), name='login'),
     path('auth/register/', RegisterView.as_view(), name='register'),
     path('auth/logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('settings/', SettingsView.as_view(), name='settings'),
     #path('auth/recover/', RecoverView.as_view(), name='user_recover_page'),
     #path('auth/recover/step2/', RecoverTokenView.as_view(), name='user_token_page'),
 
