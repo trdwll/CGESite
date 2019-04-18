@@ -5,10 +5,10 @@
 {% load forum_tracking_tags %}
 
 
-<section class="pt-lg-5">
+{% comment %} <section class="pt-lg-5">
 	<div class="container">
-		<div class="row">
-			<div class="col">
+		<div class="row"> 
+			<div class="col">{% endcomment %}
 				{% if forum_contents.nodes %}
 				{% recurseforumcontents forum_contents %}
 				{% if node.level == root_level %}
@@ -145,8 +145,8 @@
 					{% endrecurseforumcontents %}
 					
 				{% endif %}
-			</div>
+		{% comment %}	</div>
 		</div>
 	</div>
-</section>
+</section> {% endcomment %}
 

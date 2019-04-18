@@ -111,8 +111,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            MACHINA_MAIN_TEMPLATE_DIR,
-            #os.path.join(BASE_DIR, 'templates/machina'), # custom design for machina
+            # MACHINA_MAIN_TEMPLATE_DIR,
+            os.path.join(BASE_DIR, 'templates/machina'), # custom design for machina
             OSCAR_MAIN_TEMPLATE_DIR
         ],
         'APP_DIRS': True,
@@ -245,7 +245,7 @@ CSRF_COOKIE_NAME = 'jkhasjdhjaksdh'
 SITE_TITLE = 'Film And Music'
 NO_REPLY_EMAIL = 'no-reply@mydomain.com'
 
-HTML_MINIFY = True
+HTML_MINIFY = False
 
 OTP_TOTP_ISSUER = 'Film And Music Inc'
 

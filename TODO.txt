@@ -8,7 +8,8 @@ Gemeral
 - Disconnect user accounts
 - Settings (update email/password/avatar etc)
 - Recovery of account
-- Contact
+- Contact (email form)
+- Newsletter
 
 Disable Sandbox mode for oscar
 
@@ -28,7 +29,6 @@ Forum
 General
 - Translations
 - breadcrumbs
-- subscribe to newsletter
 - sitewide searching
 
 
