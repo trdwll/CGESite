@@ -1,0 +1,84 @@
+{% extends '_base.html' %}
+
+{% block title %}Forum{% endblock %}
+
+{% block content %} 
+<section class="bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="d-flex align-items-center py-3">
+                    <h2 class="text-white mb-0 mr-auto">Forums</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<nav class="bg-white border-bottom" aria-label="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Forums</li>
+        </ol>
+    </div>
+</nav>
+<section class="pt-lg-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered table-dashed mb-5">
+                    <thead>
+                        <tr>
+                            <th class="d-none d-md-table-cell" style="width: 5%;" scope="col"></th>
+                            <th scope="col">Forum</th>
+                            <th class="text-center" style="width: 5%" scope="col">Topics</th>
+                            <th class="d-none d-sm-table-cell text-center" style="width: 5%" scope="col">Replies</th>
+                            <th class="d-none d-lg-table-cell" style="width: 25%" scope="col">Latest Topic</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% load forum_tags %}
+                        {% for forum in FORUM_LIST %}
+                        <tr>
+                            <td class="d-none d-md-table-cell table-icon">
+                                <i class="{% if forum.icon %}{{ forum.icon }}{% else %}fas fa-comments{% endif %}"></i>
+                            </td>
+                            <td>
+                                <h6 class="table-title"><a href="{{ forum.get_absolute_url }}">{{ forum.title }}</a></h6>
+                                {% if forum.description %}<p class="table-text">{{ forum.description }}</p>{% endif %}
+                            </td>
+                            <td class="text-center">{{ forum.slug|get_topic_count_by_forum_slug }}</td>
+                            <td class="d-none d-sm-table-cell text-center">{{ forum.slug|get_replies_count_by_forum_slug }}</td>
+                            <td class="d-none d-lg-table-cell">
+                                <a class="table-subtitle" href="{{ forum.slug|get_latest_topic_by_forum_slug:"url" }}">{{ forum.slug|get_latest_topic_by_forum_slug:"title" }}</a>
+                                <div class="table-meta">
+                                    {{ forum.slug|get_latest_topic_by_forum_slug:"author" }} on {{ forum.slug|get_latest_topic_by_forum_slug:"date" }}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="d-none d-md-table-cell" scope="col"></th>
+                            <th scope="col">Forum</th>
+                            <th class="text-center" scope="col">Topics</th>
+                            <th class="d-none d-sm-table-cell text-center" scope="col">Replies</th>
+                            <th class="d-none d-lg-table-cell" scope="col">Latest Topic</th>
+                        </tr>
+                    </tfoot>
+                </table>
+               
+                <div class="card card-secondary shadow-none rounded-0">
+                    <h6 class="card-header bg-lighten">Who is online ({{ ONLINE_USERS_COUNT }})<span class="text-success ml-1">&#9679;</span></h6>
+                    <div class="card-body">
+                        {% for user in ONLINE_USERS %}
+                        <a href="#">{{ user.username }}</a>{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

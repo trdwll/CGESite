@@ -1,7 +1,4 @@
 
-Forum
-- Style the forum to match the actual design
-
 Google Captcha
 
 Gemeral
@@ -10,6 +7,15 @@ Gemeral
 - Recovery of account
 - Contact (email form)
 - Newsletter
+
+Forum
+- Topics
+    - Move/Edit/Trash the topics and posts
+    - Reply
+    - Pagination
+    - Google Captcha
+
+
 
 Disable Sandbox mode for oscar
 
@@ -26,12 +32,12 @@ Blog
 - upload images directly in textfield
 Forum
 - Pagination via /page/<int>/
+- Lock/Pin topics
+- Ordering of forums
+- Forum categories
+- Subforums
+- Reporting topics and posts
 General
 - Translations
 - breadcrumbs
 - sitewide searching
-
-
-Later on
-Forum
-- Add icons to each forum section (custom)

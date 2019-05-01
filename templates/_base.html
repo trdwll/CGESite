@@ -8,7 +8,6 @@
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/theme.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'plugins/fontawesome/css/all.min.css' %}" media="all" />
-
         <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}" media="all" />
     </head>
     <body class="fixed-navbar">
@@ -36,5 +35,7 @@
         <!-- js: plugins -->
         <script src="{% static 'plugins/parallax/parallax.min.js' %}"></script>
         <script src="{% static 'js/custom.js' %}"></script>
+
+        {% block end_js %}{% endblock %}
     </body>
 </html>

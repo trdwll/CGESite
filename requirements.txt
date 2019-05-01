@@ -1,9 +1,8 @@
-Django==2.0.13
+Django==2.2.1
 bcrypt
 django-multiselectfield
 django-htmlmin
 django-otp
-django-machina
 django-taggit
 django-oscar
 django-oscar-paypal
@@ -18,3 +17,5 @@ psycopg2
 gitpython
 uwsgi
 mysqlclient
+
+# Django isn't > 2.2.1 due to django-oscar

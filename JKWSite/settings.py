@@ -7,10 +7,6 @@ import os
 
 from django.contrib.messages import constants as message_constants
 
-from machina import get_apps as get_machina_apps
-from machina import MACHINA_MAIN_STATIC_DIR
-from machina import MACHINA_MAIN_TEMPLATE_DIR
-
 from oscar.defaults import *
 from oscar import OSCAR_MAIN_TEMPLATE_DIR
 from oscar import get_core_apps
@@ -51,6 +47,7 @@ INSTALLED_APPS = [
     'JKWSite',
     'blog',
     'users',
+    'forum',
 
     # 3rd party apps
     'django_otp',
@@ -58,14 +55,11 @@ INSTALLED_APPS = [
     'social_django',
     'taggit',
 
-    'paypal',
+    # 'paypal',
 
     # Machina related apps:
-    'mptt',
-    # 'haystack', # dep of oscar so get_core_apps includes it
     'widget_tweaks',
-] + get_machina_apps() + get_core_apps()
-
+] + get_core_apps()
 SITE_ID = 1
 
 OSCAR_DASHBOARD_NAVIGATION.append(
@@ -99,8 +93,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_otp.middleware.OTPMiddleware',
 
-    'machina.apps.forum_permission.middleware.ForumPermissionMiddleware',
-
     'oscar.apps.basket.middleware.BasketMiddleware',
 ]
 
@@ -111,8 +103,6 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            # MACHINA_MAIN_TEMPLATE_DIR,
-            os.path.join(BASE_DIR, 'templates/machina'), # custom design for machina
             OSCAR_MAIN_TEMPLATE_DIR
         ],
         'APP_DIRS': True,
@@ -128,8 +118,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'JKWSite.context_processors.general_processors',
-
-                'machina.core.context_processors.metadata',
 
                 'oscar.apps.search.context_processors.search_form',
                 'oscar.apps.promotions.context_processors.promotions',
@@ -151,28 +139,24 @@ WSGI_APPLICATION = 'JKWSite.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fam',
-        'USER': 'famuser',
-        'PASSWORD': '',
-        'HOST': 'server.dev.trdwll.com',
-        #'HOST': 'inline',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'fam',
+    #     'USER': 'famuser',
+    #     'PASSWORD': '',
+    #     'HOST': 'server.dev.trdwll.com',
+    #     #'HOST': 'inline',
+    #     'PORT': '3306',
+    # }
 }
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    },
-    'machina_attachments': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': '/tmp',
     },
 }
 
@@ -225,7 +209,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    MACHINA_MAIN_STATIC_DIR # might not need this....
   #  '/var/www/mydomain.com/public_html/static/',
 ]
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -248,15 +231,6 @@ NO_REPLY_EMAIL = 'no-reply@mydomain.com'
 HTML_MINIFY = False
 
 OTP_TOTP_ISSUER = 'Film And Music Inc'
-
-# Machina Settings (forum module)
-MACHINA_FORUM_NAME = 'FreeDome'
-MACHINA_FORUM_IMAGE_UPLOAD_TO = 'forum/forum_images'
-MACHINA_ATTACHMENT_FILE_UPLOAD_TO = 'forum/attachments'
-MACHINA_PROFILE_AVATAR_UPLOAD_TO = 'forum/avatars'
-MACHINA_TOPIC_ANSWER_SUBJECT_PREFIX = ''
-MACHINA_TOPIC_POSTS_NUMBER_PER_PAGE = 20
-# MACHINA_BASE_TEMPLATE_NAME = 'machina/_base.html'
 
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LcDeJoUAAAAAF7ASXpcAoY9SpGxRKLhKVlBUtQ5'

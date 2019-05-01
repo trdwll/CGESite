@@ -10,26 +10,25 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 
-from machina.app import board
-
 from oscar.app import application
-from paypal.express.dashboard.app import application as paypal_application
+#from paypal.express.dashboard.app import application as paypal_application
 
 from . import views
 from users.views import LoginView, RegisterView, SettingsView
 
-handler404 = views.handler404
-handler500 = views.handler500
+# handler404 = views.handler404
+# handler500 = views.handler500
 
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home_page'),
     path('contact/', views.ContactView.as_view(), name='contact_page'),
 
-    path('forum/', include(board.urls)),
+    path('forum/', include('forum.urls')),
+
     path('store/', application.urls),
-    path('store/checkout/paypal/', include('paypal.express.urls')),
-    path('store/dashboard/paypal/express/', paypal_application.urls),
+    #path('store/checkout/paypal/', include('paypal.express.urls')),
+    #path('store/dashboard/paypal/express/', paypal_application.urls),
     path('i18n/', include('django.conf.urls.i18n')),
 
     path('blog/', include('blog.urls')),
