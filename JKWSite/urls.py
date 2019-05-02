@@ -10,7 +10,6 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 
-from oscar.app import application
 #from paypal.express.dashboard.app import application as paypal_application
 
 from . import views
@@ -22,8 +21,8 @@ urlpatterns = [
     path('contact/', views.ContactView.as_view(), name='contact_page'),
 
     path('forum/', include('forum.urls')),
+    path('store/', include('store.urls')),
 
-    path('store/', application.urls),
     #path('store/checkout/paypal/', include('paypal.express.urls')),
     #path('store/dashboard/paypal/express/', paypal_application.urls),
     path('i18n/', include('django.conf.urls.i18n')),
@@ -49,7 +48,7 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-admin.site.site_header = 'Film And Music Inc AdminCP'
-admin.site.site_title = 'Film And Music Inc AdminCP'
+admin.site.site_header = 'Chain Gang Entertainment Inc AdminCP'
+admin.site.site_title = 'Chain Gang Entertainment Inc AdminCP'
 
 # admin.site.__class__ = OTPAdminSite

@@ -14,8 +14,6 @@ Forum
     - Move/Edit/Trash the topics and posts
 
 
-Disable Sandbox mode for oscar
-
 Go through and clean up all code and document it.
 
 
@@ -39,3 +37,8 @@ General
 - breadcrumbs
 - sitewide searching
 - Fix ckeditor image uploading
+Store
+- Reviews
+- Cart
+- Payment via other providers like Stripe or Xsolla
+- Coupons

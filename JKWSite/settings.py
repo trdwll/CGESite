@@ -8,11 +8,6 @@ from .app_settings import *
 
 from django.contrib.messages import constants as message_constants
 
-from oscar.defaults import *
-from oscar import OSCAR_MAIN_TEMPLATE_DIR
-from oscar import get_core_apps
-
-from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,6 +44,7 @@ INSTALLED_APPS = [
     'blog',
     'users',
     'forum',
+    'store',
 
     # 3rd party apps
     'django_otp',
@@ -57,10 +53,7 @@ INSTALLED_APPS = [
     'taggit',
 
     # 'paypal',
-
-    # Machina related apps:
-    'widget_tweaks',
-] + get_core_apps()
+]
 
 
 MIDDLEWARE = [
@@ -80,8 +73,6 @@ MIDDLEWARE = [
     # OTP middleware
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_otp.middleware.OTPMiddleware',
-
-    'oscar.apps.basket.middleware.BasketMiddleware',
 ]
 
 ROOT_URLCONF = 'JKWSite.urls'
@@ -91,7 +82,6 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            OSCAR_MAIN_TEMPLATE_DIR
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -106,12 +96,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'JKWSite.context_processors.general_processors',
-
-                'oscar.apps.search.context_processors.search_form',
-                'oscar.apps.promotions.context_processors.promotions',
-                'oscar.apps.checkout.context_processors.checkout',
-                'oscar.apps.customer.notifications.context_processors.notifications',
-                'oscar.core.context_processors.metadata',
 
                 'social_django.context_processors.backends', # Django Social Auth
                 'social_django.context_processors.login_redirect', # Django Social Auth
@@ -217,23 +201,9 @@ CSRF_COOKIE_NAME = 'jkhasjdhjaksdh'
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
-    # SEE: https://sendgrid.com/
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
     EMAIL_HOST_USER = 'me@gmail.com'
     EMAIL_HOST_PASSWORD = 'password'
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-
-OSCAR_DASHBOARD_NAVIGATION.append(
-{
-    'label': _('PayPal'),
-    'icon': 'icon-globe',
-    'children': [
-        {
-            'label': _('Express transactions'),
-            'url_name': 'paypal-express-list',
-        },
-    ]
-})

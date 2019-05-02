@@ -4,8 +4,6 @@ django-multiselectfield
 django-htmlmin
 django-otp
 django-taggit
-django-oscar
-django-oscar-paypal
 pycountry
 social-auth-app-django
 qrcode
@@ -17,5 +15,3 @@ psycopg2
 gitpython
 uwsgi
 mysqlclient
-
-# Django isn't > 2.2.1 due to django-oscar
