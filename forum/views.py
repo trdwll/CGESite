@@ -46,6 +46,11 @@ class ForumListView(ListView):
     def get_queryset(self, *args, **kwargs):
         return Topic.objects.all().filter(forum=Forum.objects.get(slug=self.kwargs['forum_slug'])).order_by('-date')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['forum'] = Forum.objects.get(slug=self.kwargs['forum_slug'])
+        return context
+
 
 class ForumTopicListView(ListView):
     model = Topic

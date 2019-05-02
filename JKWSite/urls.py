@@ -43,6 +43,7 @@ urlpatterns = [
     path('auth/', include('social_django.urls', namespace='social')),
 
     path('admin/', admin.site.urls),
+    path('dev/', TemplateView.as_view(template_name='developer.html')),
 ]
 
 

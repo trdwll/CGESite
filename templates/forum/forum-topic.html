@@ -1,6 +1,6 @@
 {% extends '_base.html' %}
 
-{% block title %}Topic{% endblock %}
+{% block title %}Topic - {{ topic.title }}{% endblock %}
 
 {% block content %} 
 {% load general_tags %}
@@ -9,7 +9,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'forum_home_page' %}">Forums</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Forum Post</li>
+            <li class="breadcrumb-item"><a href="{% url 'forum_list_page' forum_slug=topic.forum.slug %}">{{ topic.forum.title }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ topic.title }}</li>
         </ol>
     </div>
 </nav>

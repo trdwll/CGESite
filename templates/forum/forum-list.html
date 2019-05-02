@@ -1,6 +1,6 @@
 {% extends '_base.html' %}
 
-{% block title %}Forum View{% endblock %}
+{% block title %}Forum - {{ forum.title }}{% endblock %}
 
 {% block content %} 
 <section class="bg-primary">
@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex align-items-center py-3">
-                    <h2 class="h3 font-weight-semibold text-white mb-0 mr-auto">Forum topic</h2>
+                    <h2 class="h3 font-weight-semibold text-white mb-0 mr-auto">{{ forum.title }}</h2>
                     {% if request.user.is_authenticated %}
                     <a class="btn btn-dark btn-shadow" href="{% url 'forum_create_topic' forum_slug=view.kwargs.forum_slug %}" role="button">Add new topic</a>
                     {% endif %}
@@ -22,7 +22,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'forum_home_page' %}">Forums</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Topic</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ forum.title }}</li>
         </ol>
     </div>
 </nav>
