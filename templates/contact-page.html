@@ -3,5 +3,45 @@
 {% block title %}Contact{% endblock %}
 
 {% block content %}
-Contact info@whatever.com
+<section class="py-lg-5">
+    <div class="container">
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-9">
+                {% for field in form %}
+                    {% if field.errors %}<strong>{{ field.errors }}</strong>{% endif %}
+                    {% if field.name == 'content' %}
+                    <div class="form-group ckeditor ckeditor-lg{% if field.errors %} has-danger{% endif %}">
+                        {{ field }}
+                    </div>
+                    {% else %}
+                    <div class="form-group{% if field.errors %} has-danger{% endif %}">
+                        {{ field }}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+                <div class="col-lg-3">
+                    <div class="row row-md mb-3">
+                        <input type="submit" class="btn btn-primary btn-block" value="Send Email">
+                    </div>
+                    <div class="row row-md mb-3">
+                        {% include '_recaptcha.html' %}
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block end_js %}
+{% load static %}
+<script src="{% static 'plugins/ckeditor/ckeditor.js' %}" type="text/javascript"></script>
+<script>
+    ClassicEditor.create(document.querySelector('#editor'));
+</script>
 {% endblock %}

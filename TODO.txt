@@ -12,10 +12,6 @@ Gemeral
 Forum
 - Topics
     - Move/Edit/Trash the topics and posts
-    - Reply
-    - Pagination
-    - Google Captcha
-
 
 
 Disable Sandbox mode for oscar
@@ -30,14 +26,14 @@ Blog
 - Comment on posts
 - estimated time to read
 - author display
-- upload images directly in textfield
+- upload images directly in textfield (add ckeditor to admin)
 Forum
-- Pagination via /page/<int>/
 - Lock/Pin topics
 - Ordering of forums
 - Forum categories
 - Subforums
 - Reporting topics and posts
+- Polls
 General
 - Translations
 - breadcrumbs

@@ -1,6 +1,6 @@
 {% extends '_base.html' %}
 
-{% block title %}Create Topic{% endblock %}
+{% block title %}Create Topic in {{ forum.title }}{% endblock %}
 
 {% block content %} 
 <section class="bg-primary">
@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex align-items-center py-3">
-                    <h2 class="h3 text-white mb-0 mr-auto">Create topic</h2>
-                    <a class="btn btn-outline-light" href="forums.html" role="button">Back to forum</a>
+                    <h2 class="h3 text-white mb-0 mr-auto">Create Topic in {{ forum.title }}</h2>
+                    <a class="btn btn-outline-light" href="{% url 'forum_home_page' %}" role="button">Back to forum</a>
                 </div>
             </div>
         </div>
@@ -20,7 +20,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'forum_home_page' %}">Forums</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Create</li>
+            <li class="breadcrumb-item"><a href="{% url 'forum_list_page' forum_slug=forum_slug %}">{{ forum.title }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create Topic</li>
         </ol>
     </div>
 </nav>

@@ -98,7 +98,10 @@ class CreateTopicView(View):
     template_name = 'forum/create-topic.html'
 
     def get(self, request, forum_slug):
+        forum = get_object_or_404(Forum.objects.filter(slug=forum_slug))
+
         return render(request, self.template_name, {
+            'forum': forum,
             'forum_slug': forum_slug,
             'form': CreateTopicForm()
         })

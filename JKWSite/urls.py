@@ -16,9 +16,6 @@ from oscar.app import application
 from . import views
 from users.views import LoginView, RegisterView, SettingsView
 
-# handler404 = views.handler404
-# handler500 = views.handler500
-
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home_page'),

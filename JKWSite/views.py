@@ -3,12 +3,17 @@ Copyright 2019 Film And Music Inc. All Rights Reserved.
 Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
 """ 
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.db.models import Q
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .models import HomeData
+from .forms import ContactForm
 from blog.models import Post
+
+from .utils import google_recaptcha
 
 
 class HomeView(View):
@@ -26,11 +31,21 @@ class ContactView(View):
 	template_name = 'contact-page.html'
 
 	def get(self, request):
-		return render(request, self.template_name)
+		return render(request, self.template_name, {
+			'form': ContactForm()
+		})
 
+	def post(self, request):
+		form = ContactForm(request.POST)
 
-def handler404(request, exception, template_name='error_pages/404.html'):
-	return render(request, 'error_pages/404.html', {}, status=404)
-
-def handler500(request, exception, template_name='error_pages/500.html'):
-	return render(request, 'error_pages/500.html', {}, status=500)
+		if form.is_valid():
+			if google_recaptcha(request)['success']:
+				send_mail(
+					'Contact Request - ' + form.cleaned_data['title'],
+					form.cleaned_data['content'],
+					form.cleaned_data['email'],
+					[settings.CONTACT_EMAIL],
+					fail_silently=True
+				)
+			
+		return redirect('home_page')
