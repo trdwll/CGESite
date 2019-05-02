@@ -16,3 +16,8 @@ register = template.Library()
 def markdown(value):
     # Convert value to html (from markdown)
     return md.markdown(value, extensions=['markdown.extensions.fenced_code'])
+
+@register.filter()
+@stringfilter
+def addstr(arg1, arg2):
+    return str(arg1) + str(arg2)

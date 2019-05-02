@@ -1,5 +1,7 @@
 import git
+import urllib, json, string, random
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
@@ -23,3 +25,19 @@ def get_online_users():
 
     # Query all logged in users based on id list
     return User.objects.filter(id__in=uid_list)
+
+
+def google_recaptcha(request):
+	recaptcha_response = request.POST.get('g-recaptcha-response')
+	google_url = 'https://www.google.com/recaptcha/api/siteverify'
+	values = {
+		'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+		'response': recaptcha_response
+	}
+
+	data = urllib.parse.urlencode(values).encode()
+	req =  urllib.request.Request(google_url, data=data)
+	response = urllib.request.urlopen(req)
+	result = json.loads(response.read().decode())
+
+	return result

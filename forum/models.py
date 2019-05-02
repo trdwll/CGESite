@@ -21,7 +21,7 @@ class Topic(models.Model):
     title = models.CharField(max_length=150)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField()
 
     def get_absolute_url(self):
         return reverse('forum_topic_page', kwargs={'forum_slug': self.forum.slug, 'topic_slug': self.slug, 'topic_id': self.pk})

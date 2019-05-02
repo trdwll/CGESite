@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
-from django.views import View
+from django.views.generic import View, ListView
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.template.defaultfilters import slugify
 
+from .forms import CreateTopicForm, ReplyTopicForm
 from .models import Forum, Topic, Post
 
 from JKWSite.app_settings import *
-from JKWSite.utils import get_online_users
+from JKWSite.utils import get_online_users, google_recaptcha
 
 
 class ForumHomeView(View):
@@ -22,7 +24,7 @@ class ForumHomeView(View):
 
 
 # TODO: Change to ListView
-class ForumListView(View):
+class ForumListView1(View):
     template_name = 'forum/forum-list.html'
 
     def get(self, request, forum_slug):
@@ -35,36 +37,85 @@ class ForumListView(View):
         })
 
 
-# TODO: Change to ListView
-class ForumTopicListView(View):
+class ForumListView(ListView):
+    model = Forum
+    template_name = 'forum/forum-list.html'
+    paginate_by = 4
+    context_object_name = 'topics'
+
+    def get_queryset(self, *args, **kwargs):
+        return Topic.objects.all().filter(forum=Forum.objects.get(slug=self.kwargs['forum_slug'])).order_by('-date')
+
+
+class ForumTopicListView(ListView):
+    model = Topic
     template_name = 'forum/forum-topic.html'
+    paginate_by = 6
+    context_object_name = 'posts'
 
-    def get(self, request, forum_slug, topic_slug, topic_id):
-        topic = get_object_or_404(Topic.objects.filter(slug=topic_slug, id=topic_id))
-        posts = Post.objects.all().filter(topic=topic).order_by('-date')
-        posts_count = posts.count()
+    def get_queryset(self, *args, **kwargs):
+        topic = get_object_or_404(Topic.objects.filter(slug=self.kwargs['topic_slug'], id=self.kwargs['topic_id']))
+        return Post.objects.all().filter(topic=topic).order_by('-date')
 
-        return render(request, self.template_name, {
-            'topic': topic,
-            'POSTS': posts,
-            'POSTS_COUNT': posts_count,
-        })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        topic = get_object_or_404(Topic.objects.filter(slug=self.kwargs['topic_slug'], id=self.kwargs['topic_id']))
+
+        context['topic'] = topic
+        context['posts_count'] = Post.objects.all().filter(topic=topic).order_by('-date').count()
+        context['form'] = ReplyTopicForm()
+
+        return context
 
 
 class PostReplyToTopic(View):
     def post(self, request, forum_slug, topic_slug, topic_id):
         topic = get_object_or_404(Topic.objects.filter(slug=topic_slug, id=topic_id))
 
-        if request.POST.get('content'):
-            reply = Post.objects.create(
-                author=request.user, 
-                topic=topic,
-                # TODO: sanitize input/convert to a proper form so we can use form.cleaned_data['content']
-                body=request.POST.get('content'), 
-            )
-        
+        form = ReplyTopicForm(request.POST)
+
+        if topic and form.is_valid():
+            if google_recaptcha(request)['success']:
+                reply = Post()
+                reply.author = request.user
+                reply.topic = topic
+                reply.body = form.cleaned_data['content']
+                reply.save()
+
         return redirect('forum_topic_page', 
             forum_slug=forum_slug, 
             topic_slug=topic_slug, 
             topic_id=topic_id
         )
+
+
+class CreateTopicView(View):
+    template_name = 'forum/create-topic.html'
+
+    def get(self, request, forum_slug):
+        return render(request, self.template_name, {
+            'forum_slug': forum_slug,
+            'form': CreateTopicForm()
+        })
+
+    def post(self, request, forum_slug):
+        form = CreateTopicForm(request.POST)
+
+        forum = get_object_or_404(Forum.objects.filter(slug=forum_slug))
+
+        if forum and form.is_valid() and form.data['content']:
+            if google_recaptcha(request)['success']:
+                topic = Topic()
+                topic.forum = forum
+                topic.title = form.cleaned_data['title']
+                topic.body = form.cleaned_data['content']
+                topic.author = request.user
+                topic.slug = slugify(form.cleaned_data['title'])
+                topic.save()
+
+                return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic.slug, topic_id=topic.pk)
+        
+        return render(request, self.template_name, {
+            'form': form,
+            'forum_slug': forum_slug
+        })

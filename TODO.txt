@@ -7,6 +7,7 @@ Gemeral
 - Recovery of account
 - Contact (email form)
 - Newsletter
+- require login on certain views
 
 Forum
 - Topics
@@ -41,3 +42,4 @@ General
 - Translations
 - breadcrumbs
 - sitewide searching
+- Fix ckeditor image uploading
