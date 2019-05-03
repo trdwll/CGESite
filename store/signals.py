@@ -4,7 +4,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from paypal.standard.models import ST_PP_COMPLETED
 from paypal.standard.ipn.signals import valid_ipn_received
-import weasyprint
+# import weasyprint
 from io import BytesIO
 from .models import Order
 
@@ -29,8 +29,8 @@ def payment_notification(sender, **kwargs):
         # generate PDF
         html = render_to_string(template_name, {'order': order})
         out = BytesIO()
-        stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + 'css/pdf.css')]
-        weasyprint.HTML(string=html).write_pdf(out, stylesheets=stylesheets)
+       # stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + 'css/pdf.css')]
+       # weasyprint.HTML(string=html).write_pdf(out, stylesheets=stylesheets)
         # attach PDF file
         email.attach('order_{}.pdf'.format(order.id), out.getvalue(), 'application/pdf')
         # send e-mail

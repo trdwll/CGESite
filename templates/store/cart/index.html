@@ -1,0 +1,186 @@
+{% extends '_base.html' %}
+
+{% block title %}Store - Cart{% endblock %}
+
+{% block start_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'plugins/bootstrap-select/css/bootstrap-select.min.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="d-flex align-items-center py-3">
+                    <h2 class="h3 font-weight-semibold text-white mb-0 mr-auto">Shopping Cart <div class="font-weight-light d-inline">(5)</div>
+                    </h2>
+                    <a class="btn btn-outline-light" href="shop.html" role="button">Back to shop</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<nav class="bg-white border-bottom" aria-label="breadcrumb">
+    <div class="container">
+        <div class="d-flex align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="shop.html">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+            </ol>
+            <div class="btn-group ml-auto">
+                <a class="btn btn-default btn-icon btn-xs" href="#"><i class="ya ya-small-left"></i></a>
+                <a class="btn btn-default btn-icon btn-xs" href="#"><i class="ya ya-small-right"></i></a>
+            </div>
+        </div>
+    </div>
+</nav>
+<section class="py-lg-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table table-striped border align-items-center table-layout-fixed">
+                        <thead>
+                            <tr>
+                                <th class="d-none d-lg-table-cell text-center" scope="col" style="width: 150px;">Product</th>
+                                <th scope="col" style="width: 450px;">Title</th>
+                                <th scope="col" class="text-center" style="width: 80px;">Price</th>
+                                <th scope="col" class="text-center text-nowrap" style="width: 160px;">Quantity</th>
+                                <th scope="col" class="text-center" style="width: 80px;">Total</th>
+                                <th scope="col" style="width: 80px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% load static %}
+                            {% for item in cart %}
+                            {% with product=item.product %}
+                            <tr>
+                                <td class="d-none d-lg-table-cell text-center">
+                                    <div class="img-thumbnail rounded d-inline-block">
+                                        <img class="rounded" style="height: 100px" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                                    </div>
+                                </td>
+                                <td>
+                                    <h6><a href="shop-product.html">{{ product.title }}</a></h6>
+                                    {% comment %} <a class="btn btn-light btn-xs" href="#">PS4</a> {% endcomment %}
+                                </td>
+                                <td class="text-center">${{ item.price }}</td>
+                                <td class="text-center">
+                                    <div class="input-group quantity">
+                                        <form action="{% url "cart_add_page" product.id %}" method="post">
+                                            {% csrf_token %}
+                                            {{ item.update_quantity_form.quantity }}
+                                            {{ item.update_quantity_form.update }}
+                                            <input class="btn btn-secondary" type="submit" value="Update">
+                                        </form>
+                                        {% comment %} <div class="input-group-prepend">
+                                            <button class="btn btn-link font-size-xs minus" type="button"><i class="ya ya-minus m-0"></i></button>
+                                        </div>
+                                        <input type="number" class="form-control text" value="1" min="1">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-link font-size-xs plus" type="button"><i class="ya ya-plus m-0"></i></button>
+                                        </div> {% endcomment %}
+                                    </div>
+                                </td>
+                                <td class="text-center">${{ item.total_price }}</td>
+                                <td class="text-center">
+                                    <a href="{% url "cart_remove_page" product.id %}" data-toggle="tooltip" title="Remove from cart"><i class="ya ya-trash"></i></a>
+                                </td>
+                            </tr>
+                            {% endwith %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="d-md-flex align-items-start mt-2 mb-4 mb-md-4">
+            <form action="{% url "apply_coupon" %}" method="POST" class="form-inline mb-4 mb-md-0">
+                {{ coupon_apply_form }}&nbsp;
+                <input class="btn btn-secondary" type="submit" value="Apply Coupon">
+                {% csrf_token %}
+            </form>
+            <div class="d-flex d-md-block flex-column ml-md-auto">
+                <a class="btn btn-primary" href="{% url 'order_create' %}" role="button">Proceed to Checkout</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-default mb-4 mb-md-0">
+                    <h6 class="card-header">Calculate Shipping</h6>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select class="selectpicker w-100" id="country" data-live-search="true" title="Nothing selected">
+                                    <option>United Kingdom</option>
+                                    <option>United States</option>
+                                    <option>Spain</option>
+                                    <option>Italy</option>
+                                </select>
+                                <small id="countryHelp" class="form-text text-muted">Saw yet kindness too replying whatever marianne.</small>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="address">Address</label>
+                                    <input type="text" class="form-control" id="address" placeholder="Enter Address">
+                                </div>
+                                <div class="col-6">
+                                    <label for="zip">Zip</label>
+                                    <input type="text" class="form-control" id="zip" placeholder="Postal Code">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary">Update Totals</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- end .card -->
+            </div>
+            <div class="col-md-6">
+                <div class="card card-default mb-0">
+                    <h6 class="card-header">Order Summary</h6>
+                    <div class="card-body">
+                        <p>Shipping and additional costs are calculated based on values you have entered.</p>
+                        <table class="table table-striped mt-4 mb-0">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Cart Subtotal</th>
+                                    <td class="text-right">${{ cart.get_total_price }}</td>
+                                </tr>
+                                {% comment %} <tr>
+                                    <th scope="row">Shipping</th>
+                                    <td class="text-right">$32.45</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Tax</th>
+                                    <td class="text-right">$0.00</td>
+                                </tr>{% endcomment %}
+                                {% if cart.coupon %}
+                                <tr>
+                                    <th scope="row">Coupon</th>
+                                    <td class="text-right">- ${{ cart.get_discount|floatformat:"2" }}</td>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <th scope="row">Order Total</th>
+                                    <td class="text-right">
+                                        <strong class="text-danger">${{ cart.get_total_price_after_discount|floatformat:"2" }}</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end .card -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block end_js %}
+{% load static %}
+<script src="{% static 'plugins/bootstrap-select/js/bootstrap-select.min.js' %}"></script>
+{% endblock %}

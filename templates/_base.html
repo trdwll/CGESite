@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{% static 'css/theme.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'plugins/fontawesome/css/all.min.css' %}" media="all" />
         <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}" media="all" />
+        {% block start_css %}{% endblock %}
     </head>
     <body class="fixed-navbar">
         <div class="site">

@@ -6,7 +6,7 @@ from .models import Order
 from localflavor.us.forms import USZipCodeField
 
 
-PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
+PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 11)]
 
 class OrderCreateForm(forms.ModelForm):
     postal_code = USZipCodeField()
@@ -16,9 +16,17 @@ class OrderCreateForm(forms.ModelForm):
 
 
 class CartAddProductForm(forms.Form):
-    quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES, coerce=int, label=_('Quantity'))
+    quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES, coerce=int, label=_('Quantity'), widget=forms.Select(
+        attrs={
+            'class': 'selectpicker',
+            'data-width': 'fit'
+        }
+    ))
     update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
 
 
 class CouponApplyForm(forms.Form):
-    code = forms.CharField(label=_('Coupon'))
+    code = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Coupon Code'
+    }), min_length=3, label='')

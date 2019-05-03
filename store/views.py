@@ -24,7 +24,7 @@ from .models import (
 )
 
 
-import weasyprint
+# import weasyprint
 
 
 class StoreHomeView(ListView):
@@ -112,7 +112,7 @@ class OrderAdminPDFView(View):
         html = render_to_string(self.template_name, {'order': order})
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(order.id)
-        weasyprint.HTML(string=html).write_pdf(response, stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + 'css/pdf.css')])
+        #weasyprint.HTML(string=html).write_pdf(response, stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + 'css/pdf.css')])
         return response
 
 
@@ -128,7 +128,7 @@ class CouponApplyView(View):
                 coupon = Coupon.objects.get(code__iexact=code,
                     valid_from__lte=now,
                     valid_to__gte=now,
-                    active=True)
+                    is_active=True)
                 request.session['coupon_id'] = coupon.id
             except Coupon.DoesNotExist:
                 request.session['coupon_id'] = None
@@ -170,7 +170,7 @@ class CartAddView(View):
 
 
 class CartRemoveView(View):
-    def post(self, request, product_id):
+    def get(self, request, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, id=product_id)
         cart.remove(product)

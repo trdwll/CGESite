@@ -1,4 +1,7 @@
 
+Uncomment weasyprint on deploy etc - doesn't work on windows
+
+
 
 Gemeral
 - Disconnect user accounts
@@ -49,3 +52,4 @@ Store
 - Different pricing for regions
 - Categories
 - Option to list minimum and recommended specs
+- Add messages for errors on pages

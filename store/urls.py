@@ -6,7 +6,7 @@ from . import views
 
 urlpatterns = [
     path('', views.StoreHomeView.as_view(), name='store_home'),
-    path('<slug:product_slug>/', views.StoreProductView.as_view(), name='store_item_page'),
+    # path('<slug:product_slug>/', views.StoreProductView.as_view(), name='store_item_page'),
 
     # Payment Gateways
     path('paypal/', include('paypal.standard.ipn.urls')),
