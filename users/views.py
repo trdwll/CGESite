@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 
 from .forms import LoginForm, RegisterForm
 
+from JKWSite.utils import google_recaptcha
+
 class LoginView(View):
     template_name = 'users/login.html'
 
@@ -30,8 +32,7 @@ class LoginView(View):
             username_field = form.cleaned_data['username']
             password_field = form.cleaned_data['password']
 
-            # TODO: google recaptcha validation
-            if True:
+            if google_recaptcha(request)['success']:
                 user_obj = authenticate(username=username_field, password=password_field)
                 if user_obj is not None and user_obj.is_active:
                     login(request, user_obj)
@@ -50,14 +51,15 @@ class RegisterView(View):
     template_name = 'users/register.html'
 
     def get(self, request):
-        # if request.user.is_authenticated:
-        #     return redirect('home_page')
+        if request.user.is_authenticated:
+            return redirect('home_page')
 
         return render(request, self.template_name, {'form': RegisterForm()})
 
     def post(self, request):
-        # if request.user.is_authenticated:
-        #     return redirect('home_page')
+        if request.user.is_authenticated:
+            return redirect('home_page')
+        
         form = RegisterForm(request.POST)
 		
         if form.is_valid():
@@ -67,7 +69,7 @@ class RegisterView(View):
             password_confirm = form.cleaned_data['password_confirm']
             tos_agree = request.POST.get('tos_agree', 'off')
 
-            if True:#google_recaptcha(request)['success']:
+            if google_recaptcha(request)['success']:
                 if tos_agree != 'off':
 
                     # check if the password is in the username

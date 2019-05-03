@@ -15,3 +15,9 @@ psycopg2
 gitpython
 uwsgi
 mysqlclient
+
+# Store
+django-paypal
+weasyprint
+celery
+localflavor

@@ -1,11 +1,9 @@
 
-Google Captcha
 
 Gemeral
 - Disconnect user accounts
 - Settings (update email/password/avatar etc)
 - Recovery of account
-- Contact (email form)
 - Newsletter
 - require login on certain views
 
@@ -36,9 +34,13 @@ General
 - Translations
 - breadcrumbs
 - sitewide searching
-- Fix ckeditor image uploading
+- Allow ckeditor image uploading
 Store
 - Reviews
-- Cart
 - Payment via other providers like Stripe or Xsolla
-- Coupons
+- Physical Items
+    - Users have to add an address to account
+    - The order is sent to an external API to Spreadshirt etc since we're not physically shipping items
+- Wishlist
+- Different pricing for regions
+- Categories

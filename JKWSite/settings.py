@@ -34,10 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.flatpages',
 
     # Our apps
     'JKWSite',
@@ -51,8 +49,8 @@ INSTALLED_APPS = [
     'django_otp.plugins.otp_totp',
     'social_django',
     'taggit',
-
-    # 'paypal',
+    'paypal.standard.ipn',
+    'localflavor',
 ]
 
 
@@ -96,6 +94,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 'JKWSite.context_processors.general_processors',
+                'store.context_processors.general_processors',
 
                 'social_django.context_processors.backends', # Django Social Auth
                 'social_django.context_processors.login_redirect', # Django Social Auth
@@ -200,6 +199,7 @@ CSRF_COOKIE_NAME = 'jkhasjdhjaksdh'
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    PAYPAL_TEST = True
 else:
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp.gmail.com'
@@ -207,3 +207,7 @@ else:
     EMAIL_HOST_USER = 'me@gmail.com'
     EMAIL_HOST_PASSWORD = 'password'
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+    PAYPAL_TEST = False
+
+PAYPAL_RECEIVER_EMAIL = 'paypal@trdwll.com'
