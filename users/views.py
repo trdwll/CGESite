@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 
 from .forms import LoginForm, RegisterForm
 
-from JKWSite.utils import google_recaptcha
+from CGESite.utils import google_recaptcha
 
 class LoginView(View):
     template_name = 'users/login.html'

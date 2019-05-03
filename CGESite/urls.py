@@ -14,6 +14,7 @@ from django.contrib.auth.views import LogoutView
 
 from . import views
 from users.views import LoginView, RegisterView, SettingsView
+from store.views import PurchasesView
 
 
 urlpatterns = [
@@ -33,6 +34,8 @@ urlpatterns = [
     path('auth/register/', RegisterView.as_view(), name='register'),
     path('auth/logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('settings/', SettingsView.as_view(), name='settings'),
+    path('settings/purchases/', PurchasesView.as_view(), name='purchases'),
+
     #path('auth/recover/', RecoverView.as_view(), name='user_recover_page'),
     #path('auth/recover/step2/', RecoverTokenView.as_view(), name='user_token_page'),
 

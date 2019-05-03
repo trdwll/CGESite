@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, Coupon
+from .models import Product, Coupon, Order, OrderItem
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -18,3 +18,5 @@ class CouponAdmin(admin.ModelAdmin):
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Coupon, CouponAdmin)
+admin.site.register(Order)
+admin.site.register(OrderItem)

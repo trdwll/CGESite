@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Our apps
-    'JKWSite',
+    'CGESite',
     'blog',
     'users',
     'forum',
@@ -73,7 +73,7 @@ MIDDLEWARE = [
     'django_otp.middleware.OTPMiddleware',
 ]
 
-ROOT_URLCONF = 'JKWSite.urls'
+ROOT_URLCONF = 'CGESite.urls'
 
 TEMPLATES = [
     {
@@ -93,7 +93,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
 
-                'JKWSite.context_processors.general_processors',
+                'CGESite.context_processors.general_processors',
                 'store.context_processors.general_processors',
 
                 'social_django.context_processors.backends', # Django Social Auth
@@ -103,7 +103,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'JKWSite.wsgi.application'
+WSGI_APPLICATION = 'CGESite.wsgi.application'
 
 
 # Database

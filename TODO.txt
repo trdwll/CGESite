@@ -15,11 +15,13 @@ Store
 
 Forum
 - Topics
-    - Move/Edit/Trash the topics and posts
+    - Edit/Trash the topics and posts (trash deletes all posts also)
 
 
 Go through and clean up all code and document it.
 
+
+======================================================================================
 
 Future Features (not confirmed/just thoughts)
 
@@ -31,6 +33,7 @@ Blog
 - upload images directly in textfield (add ckeditor to admin)
 Forum
 - Lock/Pin topics
+- Move topics & posts
 - Ordering of forums
 - Forum categories
 - Subforums
@@ -42,6 +45,7 @@ General
 - breadcrumbs
 - sitewide searching
 - Allow ckeditor image uploading
+- Log user ip addresses (especially when checking out)
 Store
 - Reviews
 - Payment via other providers like Stripe or Xsolla
@@ -53,3 +57,4 @@ Store
 - Categories
 - Option to list minimum and recommended specs
 - Add messages for errors on pages
+- Show users their orders

@@ -59,22 +59,25 @@ class StoreProductView(View):
 # Order
 
 class OrderCreateView(View):
-    template_name = ''
+    template_name = 'store/order/checkout.html'
 
     def get(self, request):
         return render(request, self.template_name, {
-            'form': OrderCreateForm()
+            'form': OrderCreateForm(),
+            'cart': Cart(request)
         })
 
     def post(self, request):
         cart = Cart(request)
         form = OrderCreateForm(request.POST)
+
         if form.is_valid():
             order = form.save(commit=False)
             if cart.coupon:
                 order.coupon = cart.coupon
                 order.discount = cart.coupon.discount
 
+            order.owner = request.user
             order.save()
 
             for item in cart:
@@ -225,3 +228,20 @@ class StorePaymentCanceledView(View):
     
     def get(self, request):
         return render(request, self.template_name)
+
+
+
+# TODO: Convert to ListView
+class PurchasesView(View):
+    template_name = ''
+
+    def get(self, request):
+        orders = Order.objects.filter(owner=request.user)
+        items = OrderItem.objects.filter(order__in=orders)
+
+        print(zip(orders, items))
+
+        return render(request, self.template_name, {
+            'orders': orders,
+            'items': items,
+        })

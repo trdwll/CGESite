@@ -49,25 +49,28 @@
             </li>
             {% endif %}
 
-            {% comment %} {% if request.user.is_authenticated %}
+            {% if request.user.is_authenticated %}
             <li class="nav-item dropdown dropdown-cart d-block">
                 <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-shopping-cart"></i>
-                    {% if cart %}<span class="badge badge-warning"></span>{% endif %}
+                    {% if cart|length > 0 %}<span class="badge badge-warning"></span>{% endif %}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right bg-white">
-                    <div class="dropdown-header mb-0"><i class="fas fa-shopping-cart"></i> Cart ({% if cart %}{{ cart.items.count }}{% else %}0{% endif %})</div>
+                    <div class="dropdown-header mb-0"><i class="fas fa-shopping-cart"></i> Cart ({% if cart|length > 0 %}{{ cart|length }}{% else %}0{% endif %})</div>
                     <div class="dropdown-scrollable">
                         <ul class="dropdown-list">
-                            {% if cart and cart.items %}
-                            {% for item in cart.items.all %}
+                            {% if cart|length > 0 %}
+                            {% for item in cart %}
                             <li class="dropdown-list-item">
-                                <img class="mr-1" src="{{ item.image.url }}" alt="">
+                                <img class="mr-1" src="{% if item.image %}{{ item.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="">
                                 <div class="pl-2">
-                                    <a class="font-weight-semibold" href="shop-product.html">{{ item.title }}</a>
+                                    <a class="font-weight-semibold" href="{% url 'store_item_page' item.product.id item.product.slug %}">{{ item.product.title }}</a>
+                                    <div class="font-size-md text-muted">Quantity: {{ item.quantity }}</div>
                                     <div class="font-size-md font-weight-bold mt-1">${{ item.price }}</div>
                                 </div>
-                                <button type="button" class="btn btn-link cart-remove"><i class="fas fa-trash"></i></button>
+                                <form action="{% url "cart_remove_page" item.product.id %}">
+                                    <button type="submit" class="btn btn-link cart-remove"><i class="fas fa-trash"></i></button>
+                                </form>
                             </li>
                             {% endfor %}
                             {% else %}
@@ -79,17 +82,18 @@
                     </div>
                     <div class="dropdown-footer bg-lighten pt-0 pb-2 px-0">
                         <div class="d-flex border-bottom mb-2 px-3 py-2">
-                            Total: <span class="ml-auto font-weight-bold text-danger">${% if cart and cart.items %}{{ cart.total_price }}{% else %}0{% endif %}</span>
+                            Total: <span class="ml-auto font-weight-bold text-danger">${% if cart|length > 0 %}{{ cart.get_total_price_after_discount|floatformat:"2" }}{% else %}0{% endif %}</span>
                         </div>
                         <div class="d-flex px-3">
-                            <a class="btn btn-outline btn-sm" href="shop-cart.html">View Cart</a>
-                            <a class="btn btn-primary btn-sm ml-auto" href="shop-checkout.html">Checkout</a>
+                            <a class="btn btn-outline btn-sm" href="{% url 'cart_page' %}">View Cart</a>
+                            <a class="btn btn-primary btn-sm ml-auto" href="{% url 'order_create' %}">Checkout</a>
                         </div>
                     </div>
                 </div>
             </li>
             {% endif %} 
 
+            {% comment %}
             <li class="nav-item"><a class="nav-link toggle-search" href="#"><i class="fas fa-search"></i></a></li>
             {% endcomment %}
         </ul>

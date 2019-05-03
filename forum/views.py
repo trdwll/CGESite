@@ -6,8 +6,8 @@ from django.template.defaultfilters import slugify
 from .forms import CreateTopicForm, ReplyTopicForm
 from .models import Forum, Topic, Post
 
-from JKWSite.app_settings import *
-from JKWSite.utils import get_online_users, google_recaptcha
+from CGESite.app_settings import *
+from CGESite.utils import get_online_users, google_recaptcha
 
 
 class ForumHomeView(View):

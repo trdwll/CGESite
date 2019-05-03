@@ -59,7 +59,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <h6><a href="shop-product.html">{{ product.title }}</a></h6>
+                                    <h6><a href="{% url 'store_item_page' product.id product.slug %}">{{ product.title }}</a></h6>
                                     {% comment %} <a class="btn btn-light btn-xs" href="#">PS4</a> {% endcomment %}
                                 </td>
                                 <td class="text-center">${{ item.price }}</td>
@@ -138,7 +138,7 @@
                 <div class="card card-default mb-0">
                     <h6 class="card-header">Order Summary</h6>
                     <div class="card-body">
-                        <p>Shipping and additional costs are calculated based on values you have entered.</p>
+                        {% comment %} <p>Shipping and additional costs are calculated based on values you have entered.</p> {% endcomment %}
                         <table class="table table-striped mt-4 mb-0">
                             <tbody>
                                 <tr>
@@ -155,7 +155,7 @@
                                 </tr>{% endcomment %}
                                 {% if cart.coupon %}
                                 <tr>
-                                    <th scope="row">Coupon</th>
+                                    <th scope="row">Coupon (<em>{{ cart.coupon.code }} coupon {{ cart.coupon.discount }}% off</em>)</th>
                                     <td class="text-right">- ${{ cart.get_discount|floatformat:"2" }}</td>
                                 </tr>
                                 {% endif %}
