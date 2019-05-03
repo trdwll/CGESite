@@ -13,9 +13,9 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex align-items-center py-3">
-                    <h2 class="h3 font-weight-semibold text-white mb-0 mr-auto">Shopping Cart <div class="font-weight-light d-inline">(5)</div>
+                    <h2 class="h3 font-weight-semibold text-white mb-0 mr-auto">Shopping Cart <div class="font-weight-light d-inline">({{ cart|length }})</div>
                     </h2>
-                    <a class="btn btn-outline-light" href="shop.html" role="button">Back to shop</a>
+                    <a class="btn btn-outline-light" href="{% url 'store_home' %}" role="button">Back to Store</a>
                 </div>
             </div>
         </div>
@@ -25,14 +25,10 @@
     <div class="container">
         <div class="d-flex align-items-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="shop.html">Shop</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'home_page' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'store_home' %}">Store</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
             </ol>
-            <div class="btn-group ml-auto">
-                <a class="btn btn-default btn-icon btn-xs" href="#"><i class="ya ya-small-left"></i></a>
-                <a class="btn btn-default btn-icon btn-xs" href="#"><i class="ya ya-small-right"></i></a>
-            </div>
         </div>
     </div>
 </nav>
@@ -107,7 +103,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            {% comment %} <div class="col-md-6">
                 <div class="card card-default mb-4 mb-md-0">
                     <h6 class="card-header">Calculate Shipping</h6>
                     <div class="card-body">
@@ -137,7 +133,7 @@
                     </div>
                 </div>
                 <!-- end .card -->
-            </div>
+            </div> {% endcomment %}
             <div class="col-md-6">
                 <div class="card card-default mb-0">
                     <h6 class="card-header">Order Summary</h6>

@@ -1,4 +1,3 @@
-
 from django.urls import path, include
 
 from . import views
@@ -6,7 +5,7 @@ from . import views
 
 urlpatterns = [
     path('', views.StoreHomeView.as_view(), name='store_home'),
-    # path('<slug:product_slug>/', views.StoreProductView.as_view(), name='store_item_page'),
+    path('<int:product_id>/<slug:product_slug>/', views.StoreProductView.as_view(), name='store_item_page'),
 
     # Payment Gateways
     path('paypal/', include('paypal.standard.ipn.urls')),

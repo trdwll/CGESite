@@ -17,7 +17,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
 
     def get_absolute_url(self):
-        return reverse('store_item_page', kwargs={'product_slug': self.slug})
+        return reverse('store_item_page', kwargs={'product_id': self.id, 'product_slug': self.slug})
 
     def __str__(self):
         return self.title

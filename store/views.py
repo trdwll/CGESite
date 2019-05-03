@@ -8,6 +8,8 @@ from django.template.loader import render_to_string
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse
 
+from decimal import Decimal
+
 from .tasks import order_created
 from .cart import Cart
 from .forms import (
@@ -38,13 +40,15 @@ class StoreHomeView(ListView):
 class StoreProductView(View):
     template_name = 'store/product.html'
 
-    def get(self, request, product_slug):
+    def get(self, request, product_id, product_slug):
+        # cart = Cart(request)
+        # cart.clear()
         
         if settings.DEBUG:
             for key, value in request.session.items():
                 print('=== {} => {}'.format(key, value))
 
-        product = get_object_or_404(Product, slug=product_slug)
+        product = get_object_or_404(Product, id=product_id, slug=product_slug)
 
         return render(request, self.template_name, {
             'product': product,
@@ -134,7 +138,6 @@ class CouponApplyView(View):
                 request.session['coupon_id'] = None
 
         return redirect('cart_page')
-
 
 
 # Cart
