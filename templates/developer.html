@@ -1,1 +1,12 @@
 <!-- {{ SITE_VERSION }} -->
+
+{% with total_items=cart|length %}
+    {% if cart|length > 0 %}
+        Your cart:
+        <a href="{% url "store:store_item_page" %}">
+            {{ total_items }} item, ${{ total_price }}
+        </a>
+    {% else %}
+        Your cart is empty.
+    {% endif %}
+{% endwith %}

@@ -34,13 +34,22 @@ class StoreHomeView(ListView):
     context_object_name = 'products'
 
 
+
 class StoreProductView(View):
     template_name = 'store/product.html'
 
     def get(self, request, product_slug):
+        
+        if settings.DEBUG:
+            for key, value in request.session.items():
+                print('=== {} => {}'.format(key, value))
+
         product = get_object_or_404(Product, slug=product_slug)
 
-        return render(request, self.template_name)
+        return render(request, self.template_name, {
+            'product': product,
+            'cart_product_form': CartAddProductForm()
+        })
 
 
 # Order
@@ -135,18 +144,20 @@ class CartView(View):
     
     def get(self, request):
         cart = Cart(request)
-        coupon_apply_form = CouponApplyForm()
+
+        for item in cart:
+            item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
 
         return render(request, self.template_name, {
             'cart': cart,
-            'coupon_apply_form': coupon_apply_form,
-            })
+            'coupon_apply_form': CouponApplyForm(),
+        })
 
 
 class CartAddView(View):
-    def post(self, request, product_slug):
+    def post(self, request, product_id):
         cart = Cart(request)
-        product = get_object_or_404(Product, slug=product_slug)
+        product = get_object_or_404(Product, id=product_id)
         form = CartAddProductForm(request.POST)
         if form.is_valid():
             cart.add(
@@ -159,9 +170,9 @@ class CartAddView(View):
 
 
 class CartRemoveView(View):
-    def post(self, request, product_slug):
+    def post(self, request, product_id):
         cart = Cart(request)
-        product = get_object_or_404(Product, slug=product_slug)
+        product = get_object_or_404(Product, id=product_id)
         cart.remove(product)
 
         return redirect('cart_page')

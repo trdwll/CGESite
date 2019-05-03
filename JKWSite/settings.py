@@ -209,5 +209,3 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
     PAYPAL_TEST = False
-
-PAYPAL_RECEIVER_EMAIL = 'paypal@trdwll.com'

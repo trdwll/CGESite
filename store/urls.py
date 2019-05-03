@@ -16,8 +16,8 @@ urlpatterns = [
 
     # Cart
     path('cart/', views.CartView.as_view(), name='cart_page'),
-    path('cart/add/<slug:product_slug>/', views.CartAddView.as_view(), name='cart_add_page'),
-    path('cart/remove/<slug:product_slug>/', views.CartRemoveView.as_view(), name='cart_remove_page'),
+    path('cart/add/<int:product_id>/', views.CartAddView.as_view(), name='cart_add_page'),
+    path('cart/remove/<int:product_id>/', views.CartRemoveView.as_view(), name='cart_remove_page'),
     
     # Payment
     path('payment/process/', views.StorePaymentProcessView.as_view(), name='process_payment'),

@@ -2,10 +2,13 @@
 
 Gemeral
 - Disconnect user accounts
-- Settings (update email/password/avatar etc)
+- Settings (update email/password etc)
 - Recovery of account
 - Newsletter
 - require login on certain views
+
+Store
+- Pagination
 
 Forum
 - Topics
@@ -30,6 +33,7 @@ Forum
 - Subforums
 - Reporting topics and posts
 - Polls
+- Hide reply by default and press Reply button to show/toggle
 General
 - Translations
 - breadcrumbs
@@ -44,3 +48,4 @@ Store
 - Wishlist
 - Different pricing for regions
 - Categories
+- Option to list minimum and recommended specs

@@ -9,12 +9,16 @@ SITE_TITLE = 'Chain Gang Entertainment'
 NO_REPLY_EMAIL = 'no-reply@mydomain.com'
 CONTACT_EMAIL = 'russ@trdwll.com'
 
+
+PAYPAL_RECEIVER_EMAIL = 'paypal@trdwll.com'
+
+# I DON'T THINK THESE ARE NECESSARY ANYMORE.
 PAYPAL_API_USERNAME = 'russ+fam_api1.trdwll.com'
 PAYPAL_API_PASSWORD = '7DKGX7VZPVE66YWH'
 PAYPAL_API_SIGNATURE = 'AM.mJXg9D4CJVmLuVr1CY6gzeeHIAKpJOOCzPsP2rLQK5vcqiM5B1hPY'
 
 
-HTML_MINIFY = True
+HTML_MINIFY = False
 EXCLUDE_FROM_MINIFYING = ('dev/')
 
 OTP_TOTP_ISSUER = 'Chain Gang Entertainment Inc'
