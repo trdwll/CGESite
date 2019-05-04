@@ -20,7 +20,7 @@ def get_topic_count_by_forum_slug(forum_slug):
 def get_latest_topic_by_forum_slug(forum_slug, arg):
 	topic = Topic.objects.filter(forum=Forum.objects.get(slug=forum_slug)).order_by('-date')[:1]
 
-	if topic is not None:
+	if topic and topic[0] is not None:
 		if arg == 'author':
 			return topic[0].author
 		elif arg == 'title':

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View, ListView
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.template.defaultfilters import slugify
+from django.conf import settings
 
 from .forms import CreateTopicForm, ReplyTopicForm
 from .models import Forum, Topic, Post
@@ -23,24 +24,10 @@ class ForumHomeView(View):
         })
 
 
-# TODO: Change to ListView
-class ForumListView1(View):
-    template_name = 'forum/forum-list.html'
-
-    def get(self, request, forum_slug):
-
-        # TODO: Sort by recent post or if a topic has been created that's newer
-        topic_list = Topic.objects.all().filter(forum=Forum.objects.get(slug=forum_slug)).order_by('-date')
-
-        return render(request, self.template_name, {
-            'TOPIC_LIST': topic_list
-        })
-
-
 class ForumListView(ListView):
     model = Forum
     template_name = 'forum/forum-list.html'
-    paginate_by = 4
+    paginate_by = settings.FORUM_LIST_PAGINATION
     context_object_name = 'topics'
 
     def get_queryset(self, *args, **kwargs):
@@ -55,7 +42,7 @@ class ForumListView(ListView):
 class ForumTopicListView(ListView):
     model = Topic
     template_name = 'forum/forum-topic.html'
-    paginate_by = 6
+    paginate_by = settings.FORUM_TOPIC_LIST_PAGINATION
     context_object_name = 'posts'
 
     def get_queryset(self, *args, **kwargs):

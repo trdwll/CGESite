@@ -8,9 +8,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import (
+    LogoutView, 
+    PasswordResetView, 
+    PasswordResetDoneView, 
+    PasswordResetConfirmView, 
+    PasswordResetCompleteView
+)
 
-#from paypal.express.dashboard.app import application as paypal_application
 
 from . import views
 from users.views import LoginView, RegisterView, SettingsView
@@ -24,22 +29,23 @@ urlpatterns = [
     path('forum/', include('forum.urls')),
     path('store/', include('store.urls')),
 
-    #path('store/checkout/paypal/', include('paypal.express.urls')),
-    #path('store/dashboard/paypal/express/', paypal_application.urls),
     path('i18n/', include('django.conf.urls.i18n')),
 
     path('blog/', include('blog.urls')),
 
+    path('auth/', include('social_django.urls', namespace='social')),
     path('auth/login/', LoginView.as_view(), name='login'),
     path('auth/register/', RegisterView.as_view(), name='register'),
     path('auth/logout/', LogoutView.as_view(next_page='/'), name='logout'),
-    path('settings/', SettingsView.as_view(), name='settings'),
-    path('settings/purchases/', PurchasesView.as_view(), name='purchases'),
+    
+    path('auth/recover/', PasswordResetView.as_view(template_name='users/recover/password-reset.html'), name='password_reset'),
+    path('auth/recover/done/', PasswordResetDoneView.as_view(template_name='users/recover/password-reset-done.html'), name='password_reset_done'),
+    path('auth/recover/confirm/<uidb64>/<slug:token>/', PasswordResetConfirmView.as_view(template_name='users/recover/password-reset-confirm.html'), name='password_reset_confirm'),
+    path('auth/recover/complete/', PasswordResetCompleteView.as_view(template_name='users/recover/password-reset-complete.html'), name='password_reset_complete'),
 
-    #path('auth/recover/', RecoverView.as_view(), name='user_recover_page'),
-    #path('auth/recover/step2/', RecoverTokenView.as_view(), name='user_token_page'),
-
-    path('auth/', include('social_django.urls', namespace='social')),
+    # TODO: Add settings pages
+    #path('settings/', SettingsView.as_view(), name='settings'),
+    #path('settings/purchases/', PurchasesView.as_view(), name='purchases'),
 
     path('admin/', admin.site.urls),
     path('dev/', TemplateView.as_view(template_name='developer.html')),

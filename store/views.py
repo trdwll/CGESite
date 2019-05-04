@@ -30,24 +30,22 @@ from .models import (
 
 
 class StoreHomeView(ListView):
+    """
+    Show the items that are in the store
+    """
     model = Product
     template_name = 'store/index.html'
-    paginate_by = 5
+    paginate_by = settings.STORE_LIST_PAGINATION
     context_object_name = 'products'
 
 
-
 class StoreProductView(View):
+    """
+    Show details of the item that the user selected
+    """
     template_name = 'store/product.html'
 
     def get(self, request, product_id, product_slug):
-        # cart = Cart(request)
-        # cart.clear()
-        
-        if settings.DEBUG:
-            for key, value in request.session.items():
-                print('=== {} => {}'.format(key, value))
-
         product = get_object_or_404(Product, id=product_id, slug=product_slug)
 
         return render(request, self.template_name, {
@@ -59,6 +57,9 @@ class StoreProductView(View):
 # Order
 
 class OrderCreateView(View):
+    """
+    Create the order for the user
+    """
     template_name = 'store/order/checkout.html'
 
     def get(self, request):

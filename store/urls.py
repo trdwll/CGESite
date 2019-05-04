@@ -4,6 +4,7 @@ from . import views
 
 
 urlpatterns = [
+    # View
     path('', views.StoreHomeView.as_view(), name='store_home'),
     path('<int:product_id>/<slug:product_slug>/', views.StoreProductView.as_view(), name='store_item_page'),
 
@@ -29,4 +30,7 @@ urlpatterns = [
     # Admin
     path('admin/order/<int:order_id>/', views.OrderAdminView.as_view(), name='admin_order_detail'),
     path('admin/order/<int:order_id>/pdf/', views.OrderAdminPDFView.as_view(), name='admin_order_pdf'),
+
+    # Pagination
+    path('page/<int:page>/', views.StoreHomeView.as_view(), name='store_home_paginated'),
 ]
