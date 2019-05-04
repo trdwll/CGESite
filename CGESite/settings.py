@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
 
     # Our apps
     'CGESite',
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     'users',
     'forum',
     'store',
+    'newsletter',
 
     # 3rd party apps
     'django_otp',
@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'taggit',
     'paypal.standard.ipn',
     'localflavor',
-    'newsletter',
 ]
 
 

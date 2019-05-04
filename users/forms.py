@@ -64,4 +64,3 @@ class RegisterForm(forms.Form):
             'password',
             'password_confirm'
         ]
-

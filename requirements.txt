@@ -4,7 +4,6 @@ django-multiselectfield
 django-htmlmin
 django-otp
 django-taggit
-git+https://github.com/dokterbob/django-newsletter.git
 pycountry
 social-auth-app-django
 qrcode

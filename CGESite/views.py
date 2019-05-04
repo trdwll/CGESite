@@ -43,8 +43,8 @@ class ContactView(View):
 				send_mail(
 					'Contact Request - ' + form.cleaned_data['title'],
 					form.cleaned_data['content'],
+					settings.CONTACT_EMAIL,
 					form.cleaned_data['email'],
-					[settings.CONTACT_EMAIL],
 					fail_silently=True
 				)
 			

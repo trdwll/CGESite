@@ -8,6 +8,7 @@ FORUM_LIST_PAGINATION = 20
 STORE_LIST_PAGINATION = 24
 
 
+NEWSLETTER_UNSUBSCRIBE_LINK = 'https://domain.com/newsletter/unsubscribe/'
 
 SITE_TITLE = 'Chain Gang Entertainment'
 NO_REPLY_EMAIL = 'no-reply@mydomain.com'
@@ -83,8 +84,3 @@ LANGUAGE_CODE = 'en'
 
 
 CART_SESSION_ID = 'cart'
-
-
-SITE_ID = 1
-# Newsletter
-NEWSLETTER_CONFIRM_EMAIL = False

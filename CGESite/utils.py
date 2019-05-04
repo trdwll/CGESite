@@ -45,3 +45,7 @@ def google_recaptcha(request):
 	result = json.loads(response.read().decode())
 
 	return result
+
+
+def get_random_string(size=15):
+    return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(size))

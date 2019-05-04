@@ -23,16 +23,13 @@
             <div class="col-md-4">
                 <div class="footer-title">Subscribe</div>
                 <p>Subscribe to our newsletter and get notification when new games are available.</p>
-                <form>
+                <form action="{% url 'newsletter_subscribe' %}" method="POST">
                     <div class="input-group mt-4">
-                        <input type="text" class="form-control shadow-none border-0" placeholder="Email">
+                        {% csrf_token %}
+                        <input type="email" name="email" id="email" class="form-control shadow-none border-0" placeholder="Email">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">Subscribe</button>
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
                         </div>
-                    </div>
-                    <div class="custom-control custom-checkbox mt-3">
-                        <input type="checkbox" class="custom-control-input" id="subscribe">
-                        <label class="custom-control-label" for="subscribe">Subscribe me to newsletter</label>
                     </div>
                 </form>
             </div>

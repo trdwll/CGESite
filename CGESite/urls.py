@@ -20,7 +20,7 @@ from django.contrib.auth.views import (
 from . import views
 from users.views import LoginView, RegisterView, SettingsView
 from store.views import PurchasesView
-
+from newsletter.views import NewsletterSubscribeView, NewsletterUnSubscribeView
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home_page'),
@@ -38,6 +38,7 @@ urlpatterns = [
     path('auth/register/', RegisterView.as_view(), name='register'),
     path('auth/logout/', LogoutView.as_view(next_page='/'), name='logout'),
     
+    # Account Recovery
     path('auth/recover/', PasswordResetView.as_view(template_name='users/recover/password-reset.html'), name='password_reset'),
     path('auth/recover/done/', PasswordResetDoneView.as_view(template_name='users/recover/password-reset-done.html'), name='password_reset_done'),
     path('auth/recover/confirm/<uidb64>/<slug:token>/', PasswordResetConfirmView.as_view(template_name='users/recover/password-reset-confirm.html'), name='password_reset_confirm'),
@@ -47,10 +48,15 @@ urlpatterns = [
     #path('settings/', SettingsView.as_view(), name='settings'),
     #path('settings/purchases/', PurchasesView.as_view(), name='purchases'),
 
-    path('newsletter/', include('newsletter.urls')),
+    path('newsletter/subscribe/', NewsletterSubscribeView.as_view(), name='newsletter_subscribe'),
+    path('newsletter/unsubscribe/', NewsletterUnSubscribeView.as_view(), name='newsletter_unsubscribe'),
+    path('newsletter/subscribed/', TemplateView.as_view(template_name='newsletter/subscribed.html'), name='newsletter_subscribed'),
+    path('newsletter/unsubscribed/', TemplateView.as_view(template_name='newsletter/unsubscribed.html'), name='newsletter_unsubscribed'),
 
     path('admin/', admin.site.urls),
     path('dev/', TemplateView.as_view(template_name='developer.html')),
+
+    # TODO: TOS and PP as TemplateView
 ]
 
 
