@@ -1,3 +1,7 @@
+"""
+Copyright 2019 Chain Gang Entertainment Inc. All Rights Reserved.
+Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
+""" 
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage

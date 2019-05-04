@@ -1,4 +1,4 @@
 """
 Copyright 2019 Russ 'trdwll' Treadwell <russ@trdwll.com>
-Copyright 2019 Film And Music Inc.
+Copyright 2019 Chain Gang Entertainment Inc.
 """ 

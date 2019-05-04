@@ -1,5 +1,5 @@
 """
-Copyright 2019 Film And Music Inc. All Rights Reserved.
+Copyright 2019 Chain Gang Entertainment Inc. All Rights Reserved.
 Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
 """ 
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # Our apps
     'CGESite',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'taggit',
     'paypal.standard.ipn',
     'localflavor',
+    'newsletter',
 ]
 
 

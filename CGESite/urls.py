@@ -1,5 +1,5 @@
 """
-Copyright 2019 Film And Music Inc. All Rights Reserved.
+Copyright 2019 Chain Gang Entertainment Inc. All Rights Reserved.
 Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
 """ 
 
@@ -46,6 +46,8 @@ urlpatterns = [
     # TODO: Add settings pages
     #path('settings/', SettingsView.as_view(), name='settings'),
     #path('settings/purchases/', PurchasesView.as_view(), name='purchases'),
+
+    path('newsletter/', include('newsletter.urls')),
 
     path('admin/', admin.site.urls),
     path('dev/', TemplateView.as_view(template_name='developer.html')),

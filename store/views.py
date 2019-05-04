@@ -1,3 +1,7 @@
+"""
+Copyright 2019 Chain Gang Entertainment Inc. All Rights Reserved.
+Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
+""" 
 from django.shortcuts import render, redirect
 from django.views.generic import View, ListView
 from django.shortcuts import render, get_object_or_404, get_list_or_404

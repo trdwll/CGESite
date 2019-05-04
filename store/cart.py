@@ -1,3 +1,7 @@
+"""
+Copyright 2019 Chain Gang Entertainment Inc. All Rights Reserved.
+Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
+""" 
 from decimal import Decimal
 from django.conf import settings
 from .models import Product, Coupon

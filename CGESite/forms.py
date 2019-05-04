@@ -1,5 +1,8 @@
+"""
+Copyright 2019 Chain Gang Entertainment Inc. All Rights Reserved.
+Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
+""" 
 from django import forms
-
 
 class ContactForm(forms.Form):
     email = forms.CharField(widget=forms.EmailInput(attrs={

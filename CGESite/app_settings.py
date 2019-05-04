@@ -1,3 +1,7 @@
+"""
+Copyright 2019 Chain Gang Entertainment Inc. All Rights Reserved.
+Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
+""" 
 
 FORUM_TOPIC_LIST_PAGINATION = 20
 FORUM_LIST_PAGINATION = 20
@@ -79,3 +83,8 @@ LANGUAGE_CODE = 'en'
 
 
 CART_SESSION_ID = 'cart'
+
+
+SITE_ID = 1
+# Newsletter
+NEWSLETTER_CONFIRM_EMAIL = False

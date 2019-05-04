@@ -4,14 +4,8 @@ Uncomment weasyprint on deploy etc - doesn't work on windows
 
 
 Gemeral
-- Disconnect user accounts
-- Settings (update email/password etc)
-- Recovery of account
 - Newsletter
 - require login on certain views
-
-Store
-- Pagination
 
 Forum
 - Topics
@@ -46,6 +40,8 @@ General
 - sitewide searching
 - Allow ckeditor image uploading
 - Log user ip addresses (especially when checking out)
+- Settings (update email/password etc)
+- Disconnect user accounts
 Store
 - Reviews
 - Payment via other providers like Stripe or Xsolla

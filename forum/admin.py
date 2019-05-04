@@ -1,3 +1,7 @@
+"""
+Copyright 2019 Chain Gang Entertainment Inc. All Rights Reserved.
+Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
+""" 
 from django.contrib import admin
 from .models import Forum, Topic, Post
 
