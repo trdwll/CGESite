@@ -3,6 +3,7 @@ Copyright 2019 Chain Gang Entertainment Inc. All Rights Reserved.
 Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
 """ 
 
+DEVEL = True
 import os
 from .app_settings import *
 
@@ -106,25 +107,29 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'CGESite.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEVEL:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'fam',
-    #     'USER': 'famuser',
-    #     'PASSWORD': '',
-    #     'HOST': 'server.dev.trdwll.com',
-    #     #'HOST': 'inline',
-    #     'PORT': '3306',
-    # }
-}
+else:
+    DATABASES = {
+        'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'fam',
+                'USER': 'famuser',
+                'PASSWORD': '',
+                # 'HOST': 'server.dev.trdwll.com',
+                'HOST': 'inline',
+                'PORT': '3306',
+            }
+        }
+
 
 CACHES = {
     'default': {
