@@ -56,3 +56,19 @@ class EditTopicForm(forms.Form):
         'content',
         'update_reason'
     ]
+
+class EditPostForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'form-control',
+        'id': 'editor',
+    }), required=False, label='Body', help_text='')
+
+    update_reason = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Update Reason'
+    }), min_length=5, label='Update Reason', required=False)
+
+    meta = [
+        'content',
+        'update_reason'
+    ]

@@ -146,9 +146,15 @@
                                         <button type="submit" class="btn btn-link btn-icon btn-xs" data-toggle="tooltip" title="Trash"><i class="ya ya-trash"></i></button>
                                     </form>
                                     {% endif %}
+                                    {% if request.user == post.author or request.user.is_staff or request.user.is_superuser %}
+                                    <a class="btn btn-link btn-icon btn-xs" data-toggle="tooltip" title="Edit Post" href="{% url 'forum_topic_page_edit_post' topic.forum.slug topic.slug topic.id post.id %}"><i class="ya ya-edit"></i></a>
+                                    {% endif %}
                                 </div>
                             </div>
                             {{ post.body|markdown|safe }}
+                            {% if post.updated and post.updated_by %}
+                                <small class="text-muted">Updated: {{ post.updated }} by {{ post.updated_by.username }}. {% if post.updated_reason %}Reason: {{ post.updated_reason }}{% endif %}</small>
+                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}

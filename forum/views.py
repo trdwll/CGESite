@@ -9,7 +9,10 @@ from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.utils import timezone
 
-from .forms import CreateTopicForm, ReplyTopicForm, EditTopicForm
+from .forms import (
+    CreateTopicForm, ReplyTopicForm, 
+    EditTopicForm, EditPostForm
+)
 from .models import Forum, Topic, Post
 
 from CGESite.app_settings import *
@@ -187,4 +190,46 @@ class EditTopicView(View):
 
 
 class EditPostView(View):
-    pass
+    template_name = 'forum/moderator/edit-post.html'
+
+    def get(self, request, forum_slug, topic_slug, topic_id, post_id):
+        forum = get_object_or_404(Forum.objects.filter(slug=forum_slug))
+        topic = get_object_or_404(Topic, slug=topic_slug, id=topic_id, forum=forum)
+        post = get_object_or_404(Post, id=post_id, topic=topic)
+        
+        if request.user == topic.author or request.user.is_staff or request.user.is_superuser:
+            return render(request, self.template_name, {
+                'form': EditPostForm(),
+                'forum': forum,
+                'topic': topic,
+                'post': post
+            })
+        
+        return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
+
+    def post(self, request, forum_slug, topic_slug, topic_id, post_id):
+        form = EditPostForm(request.POST)
+
+        forum = get_object_or_404(Forum.objects.filter(slug=forum_slug))
+        topic = get_object_or_404(Topic, slug=topic_slug, id=topic_id, forum=forum)
+        post = get_object_or_404(Post, id=post_id, topic=topic)
+
+        if request.user == post.author or request.user.is_staff or request.user.is_superuser:
+            if forum and form.is_valid() and form.data['content']:
+                if google_recaptcha(request)['success'] and post.body != form.cleaned_data['content']:
+                    post.body = form.cleaned_data['content'] 
+                    post.updated = timezone.now() 
+                    post.updated_by = request.user
+                    post.updated_reason = form.cleaned_data['update_reason']
+                    post.save()
+
+                    return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
+            
+            return render(request, self.template_name, {
+                'form': form,
+                'forum': forum,
+                'topic': topic,
+                'post': post
+            })
+
+        return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
