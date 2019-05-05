@@ -7,8 +7,9 @@ from django.views.generic import View, ListView
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.template.defaultfilters import slugify
 from django.conf import settings
+from django.utils import timezone
 
-from .forms import CreateTopicForm, ReplyTopicForm
+from .forms import CreateTopicForm, ReplyTopicForm, EditTopicForm
 from .models import Forum, Topic, Post
 
 from CGESite.app_settings import *
@@ -118,3 +119,72 @@ class CreateTopicView(View):
             'form': form,
             'forum_slug': forum_slug
         })
+
+
+class TrashTopicView(View):
+    def post(self, request, forum_slug, topic_slug, topic_id):
+        topic = get_object_or_404(Topic.objects.filter(forum=Forum.objects.get(slug=forum_slug), slug=topic_slug, id=topic_id))
+        posts = get_list_or_404(Post, topic=topic)
+
+        if request.user.is_staff or request.user.is_superuser:
+            topic.delete()
+            posts.delete()
+
+        return redirect('forum_home_page')
+
+
+class TrashPostView(View):
+    def post(self, request, forum_slug, topic_slug, topic_id, post_id):
+        topic = get_object_or_404(Topic.objects.filter(forum=Forum.objects.get(slug=forum_slug), slug=topic_slug, id=topic_id))
+        posts = get_object_or_404(Post, topic=topic, id=post_id)
+
+        if request.user == topic.author or request.user.is_staff or request.user.is_superuser:
+            posts.delete()
+
+        return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
+
+
+class EditTopicView(View):
+    template_name = 'forum/moderator/edit-topic.html'
+
+    def get(self, request, forum_slug, topic_slug, topic_id):
+        forum = get_object_or_404(Forum.objects.filter(slug=forum_slug))
+        topic = get_object_or_404(Topic, slug=topic_slug, id=topic_id, forum=forum)
+        
+        if request.user == topic.author or request.user.is_staff or request.user.is_superuser:
+            return render(request, self.template_name, {
+                'form': EditTopicForm(),
+                'forum': forum,
+                'topic': topic
+            })
+        
+        return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
+
+    def post(self, request, forum_slug, topic_slug, topic_id):
+        form = EditTopicForm(request.POST)
+
+        forum = get_object_or_404(Forum.objects.filter(slug=forum_slug))
+        topic = get_object_or_404(Topic, slug=topic_slug, id=topic_id, forum=forum)
+
+        if request.user == topic.author or request.user.is_staff or request.user.is_superuser:
+            if forum and form.is_valid() and form.data['content']:
+                if google_recaptcha(request)['success'] and topic.body != form.cleaned_data['content']:
+                    topic.body = form.cleaned_data['content'] 
+                    topic.updated = timezone.now() 
+                    topic.updated_by = request.user
+                    topic.updated_reason = form.cleaned_data['update_reason']
+                    topic.save()
+
+                    return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
+            
+            return render(request, self.template_name, {
+                'form': form,
+                'forum': forum,
+                'topic': topic
+            })
+
+        return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
+
+
+class EditPostView(View):
+    pass

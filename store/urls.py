@@ -32,8 +32,8 @@ urlpatterns = [
     path('order/create/', views.OrderCreateView.as_view(), name='order_create'),
     
     # Admin
-    path('admin/order/<int:order_id>/', views.OrderAdminView.as_view(), name='admin_order_detail'),
-    path('admin/order/<int:order_id>/pdf/', views.OrderAdminPDFView.as_view(), name='admin_order_pdf'),
+    #path('admin/order/<int:order_id>/', views.OrderAdminView.as_view(), name='admin_order_detail'),
+    #path('admin/order/<int:order_id>/pdf/', views.OrderAdminPDFView.as_view(), name='admin_order_pdf'),
 
     # Pagination
     path('page/<int:page>/', views.StoreHomeView.as_view(), name='store_home_paginated'),

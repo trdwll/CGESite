@@ -4,13 +4,10 @@ Uncomment weasyprint on deploy etc - doesn't work on windows
 
 
 Gemeral
-- Newsletter
 - require login on certain views
 
-Forum
-- Topics
-    - Edit/Trash the topics and posts (trash deletes all posts also)
-
+Store
+- Payment processing
 
 Go through and clean up all code and document it.
 
@@ -54,3 +51,4 @@ Store
 - Option to list minimum and recommended specs
 - Add messages for errors on pages
 - Show users their orders
+- Admin view orders
