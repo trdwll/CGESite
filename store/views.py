@@ -11,6 +11,8 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse
+from paypal.standard.forms import PayPalPaymentsForm
+from django.views.decorators.csrf import csrf_exempt
 
 from decimal import Decimal
 
@@ -92,7 +94,7 @@ class OrderCreateView(View):
             cart.clear()
 
             # launch asynchronous task
-            order_created.delay(order.id)
+            # order_created.delay(order.id)
 
             # set the order in the session
             request.session['order_id'] = order.id
@@ -196,10 +198,6 @@ class StorePaymentProcessView(View):
     template_name = 'store/payment/process.html'
 
     def get(self, request):
-        return render(request, self.template_name)
-
-    # TODO: This may need to be a GET rather than a POST
-    def post(self, request):
         order_id = request.session.get('order_id')
         order = get_object_or_404(Order, id=order_id)
         host = request.get_host()
@@ -211,19 +209,20 @@ class StorePaymentProcessView(View):
             'invoice': str(order.id),
             'currency_code': 'USD',
             'notify_url': 'http://{}{}'.format(host, reverse('paypal-ipn')),
-            'return_url': 'http://{}{}'.format(host, reverse('payment:done')),
-            'cancel_return': 'http://{}{}'.format(host, reverse('payment:canceled')),
+            'return_url': 'http://{}{}'.format(host, reverse('done_payment')),
+            'cancel_return': 'http://{}{}'.format(host, reverse('canceled_payment')),
         }
         form = PayPalPaymentsForm(initial=paypal_dict)
-        return render(request, 'payment/process.html', {
+        return render(request, self.template_name, {
             'order': order, 
-            'form':form
+            'form': form
         })
 
 
 class StorePaymentDoneView(View):
     template_name = 'store/payment/done.html'
     
+    @csrf_exempt
     def get(self, request):
         return render(request, self.template_name)
 
@@ -231,6 +230,7 @@ class StorePaymentDoneView(View):
 class StorePaymentCanceledView(View):
     template_name = 'store/payment/canceled.html'
     
+    @csrf_exempt
     def get(self, request):
         return render(request, self.template_name)
 

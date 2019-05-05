@@ -11,6 +11,7 @@ from paypal.standard.ipn.signals import valid_ipn_received
 # import weasyprint
 from io import BytesIO
 from .models import Order
+from django.dispatch import receiver
 
 
 def payment_notification(sender, **kwargs):

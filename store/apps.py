@@ -9,4 +9,4 @@ class StoreConfig(AppConfig):
     name = 'store'
 
     def ready(self):
-        import .signals
+        import store.signals

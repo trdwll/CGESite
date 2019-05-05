@@ -26,9 +26,9 @@ class Topic(models.Model):
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField()
-    updated = models.DateTimeField(blank=True)
-    updated_by = models.ForeignKey(User, related_name='topic_updated_by', on_delete=models.CASCADE, blank=True)
-    updated_reason = models.CharField(max_length=200, blank=True)
+    updated = models.DateTimeField(blank=True, null=True)
+    updated_by = models.ForeignKey(User, related_name='topic_updated_by', on_delete=models.CASCADE, blank=True, null=True)
+    updated_reason = models.CharField(max_length=200, blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('forum_topic_page', kwargs={'forum_slug': self.forum.slug, 'topic_slug': self.slug, 'topic_id': self.pk})
@@ -42,9 +42,9 @@ class Post(models.Model):
     author = models.ForeignKey(User, related_name='post_author', on_delete=models.CASCADE)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(blank=True)
-    updated_by = models.ForeignKey(User, related_name='post_updated_by', on_delete=models.CASCADE, blank=True)
-    updated_reason = models.CharField(max_length=200, blank=True)
+    updated = models.DateTimeField(blank=True, null=True)
+    updated_by = models.ForeignKey(User, related_name='post_updated_by', on_delete=models.CASCADE, blank=True, null=True)
+    updated_reason = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.topic.title + ' ' + self.author.username

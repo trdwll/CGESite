@@ -5,18 +5,21 @@
 {% block content %}
 {% load general_tags %}
 {% load static %}
+
 <section class="p-0 overflow-hidden">
     <div class="owl-carousel" ya-carousel="autoplay: true;height: true">
+        {% for entry in carousel %}
         <div class="owl-carousel-item">
-            <img src="{{ homedata.background.url }}" ya-style="opacity: .28" alt="">
+            <img src="{{ entry.background.url }}" ya-style="opacity: .28" alt="">
             <div class="owl-caption">
                 <div class="owl-caption-container">
-                    <h1 class="owl-title">{{ homedata.title }}</h1>
-                    <p class="owl-text">{{ homedata.tagline }}</p>
-                    <a class="btn btn-outline-light btn-lg btn-rounded ml-2" href="{{ homedata.video_link }}" ya-lightbox role="button">Watch Trailer</a>
+                    <h1 class="owl-title">{{ entry.title }}</h1>
+                    <p class="owl-text">{{ entry.tagline }}</p>
+                    {% if entry.video_link %}<a class="btn btn-outline-light btn-lg btn-rounded ml-2" href="{{ entry.video_link }}" ya-lightbox role="button">Watch Trailer</a>{% endif %}
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </section>
 <section class="bg-white border-top border-bottom py-0 py-md-4">
@@ -24,17 +27,13 @@
         <div class="row justify-content-around align-items-center">
             <div class="col-lg-6 px-xs-0">
                 <div class="img-cover" style="min-height: 600px;">
-                    <img src="https://static.giantbomb.com/uploads/original/2/22934/2759159-image_horizon_zero_dawn-28643-3283_0009.jpg" alt="">
+                    <img src="{{ homedata.image.url }}" alt="">
                 </div>
             </div>
             <div class="col-lg-5 pl-md-5 pb-4 pb-md-0 mr-auto mt-4 mt-md-0 mb-2 mb-md-0">
                 <div class="px-2 px-md-0">
-                    <h2 class="display-5 font-weight-normal text-dark mb-3">Horizon Zero Dawn</h2>
-                    <p class="lead">Horizon Zero Dawn is an exhilarating action role playing game developed by the award winning Guerrilla Games, creators of PlayStation’s venerated Killzone franchise.</p>
-                    <hr>
-                    <p class="mb-4 pb-2">As Horizon Zero Dawn’s main protagonist Aloy, a skilled hunter, explore a vibrant and lush world inhabited by mysterious mechanized creatures. Embark on a compelling, emotional journey and unravel mysteries of tribal societies, ancient artifacts and advanced technologies that will determine the fate of this planet, and of life itself.</p>
-                    <a class="btn btn-outline-primary btn-lg mr-1" href="game-post.html" role="button">View Game</a>
-                    <a class="btn btn-dark btn-lg" href="#" role="button">Follow now</a>
+                    <h2 class="display-5 font-weight-normal text-dark mb-3">{{ SITE_TITLE }}</h2>
+                    <p class="lead">{{ homedata.about }}</p>
                 </div>
             </div>
         </div>
@@ -48,159 +47,67 @@
                 <h2 class="font-weight-bold font-size-lg">Classes and Characters</h2>
             </div>
         </div>
+
         <div class="row row-md">
             <div class="col-sm-6 col-md-4 col-lg-3 card-group mb-sm-4">
                 <div class="card card-sm">
-                    <a class="card-img card-img-sm" href="video-post.html">
-                        <img src="https://i1.ytimg.com/vi/qKZa-SUTg0g/mqdefault.jpg" alt="Assassin's Creed: Odyssey The Movie">
-                        <div class="card-meta">
-                            <span>5:31</span>
-                        </div>
+                    <a class="card-img card-img-sm" href="#">
+                        <img src="{% static 'img/mercenary.jpg' %}" alt="Mercenary">
                     </a>
                     <div class="card-body">
-                        <h6 class="card-title"><a href="video-post.html">Assassin's Creed: Odyssey The Movie</a></h6>
-                        <p class="card-text font-size-md">A collection of every cutscene, telling the story of Assassin's Creed: Origins and spoiler...</p>
-                    </div>
-                    <div class="card-footer">
-                        <span><i class="ya ya-clock"></i> Jul 24, 2018</span>
-                        <span class="ml-auto"><i class="ya ya-eye"></i> 1009 views</span>
+                        <h6 class="card-title"><a href="#">Mercenary</a></h6>
+                        <p class="card-text font-size-md">These guys are your everyday warrior class. Can take a little bit of a beating and have enough firepower to handle their own.</p>
                     </div>
                 </div>
-                <!-- end .card -->
             </div>
             <div class="col-sm-6 col-md-4 col-lg-3 card-group mb-sm-4">
                 <div class="card card-sm">
-                    <a class="card-img card-img-sm" href="video-post.html">
-                        <img src="https://i1.ytimg.com/vi/kl89hzB0L4g/mqdefault.jpg" alt="Knights of the Frozen Throne Opening Cinematic">
-                        <div class="card-meta">
-                            <span>4:12</span>
-                        </div>
+                    <a class="card-img card-img-sm" href="#">
+                        <img src="{% static 'img/sniper.jpg' %}" alt="Sniper">
                     </a>
                     <div class="card-body">
-                        <h6 class="card-title"><a href="video-post.html">Knights of the Frozen Throne Opening Cinematic</a></h6>
-                        <p class="card-text font-size-md">Take a look at the intro cinematic for the upcoming Hearthstone expansion....</p>
-                    </div>
-                    <div class="card-footer">
-                        <span><i class="ya ya-clock"></i> Jul 24, 2018</span>
-                        <span class="ml-auto"><i class="ya ya-eye"></i> 5235 views</span>
+                        <h6 class="card-title"><a href="#">Sniper</a></h6>
+                        <p class="card-text font-size-md">Snipers are similar to assassin class in other games. Very high firepower, good speed but a little lower in health. Snipers will have the ability to blend in with their environment, disappearing for moments within the game. They also will have the ability to spy on the map with the use of mini helicopters.</p>
                     </div>
                 </div>
-                <!-- end .card -->
             </div>
             <div class="col-sm-6 col-md-4 col-lg-3 card-group mb-sm-4">
                 <div class="card card-sm">
-                    <a class="card-img card-img-sm" href="video-post.html">
-                        <img src="https://i1.ytimg.com/vi/_pHuYmlGu-M/mqdefault.jpg" alt="The Villains of the DC Universe Movies">
-                        <div class="card-meta">
-                            <span>34:44</span>
-                        </div>
+                    <a class="card-img card-img-sm" href="#">
+                        <img src="{% static 'img/medic.jpg' %}" alt="Medic">
                     </a>
                     <div class="card-body">
-                        <h6 class="card-title"><a href="video-post.html">The Villains of the DC Universe Movies</a></h6>
-                        <p class="card-text font-size-md">This box set includes 30 full-length feature films and 5 animated shorts, combined with ne...</p>
-                    </div>
-                    <div class="card-footer">
-                        <span><i class="ya ya-clock"></i> Jul 20, 2018</span>
-                        <span class="ml-auto"><i class="ya ya-eye"></i> 559 views</span>
+                        <h6 class="card-title"><a href="#">Medic</a></h6>
+                        <p class="card-text font-size-md">Medics are your support. Within the match, he will be able to heal other characters and provide support to the front line with the use of Grenade Launchers. This will be one of the most important and least gratifying roles in the game.</p>
                     </div>
                 </div>
-                <!-- end .card -->
             </div>
             <div class="col-sm-6 col-md-4 col-lg-3 card-group mb-sm-4">
                 <div class="card card-sm">
-                    <a class="card-img card-img-sm" href="video-post.html">
-                        <img src="https://i1.ytimg.com/vi/__2RsAP1sZc/mqdefault.jpg" alt="Overwatch Animated Short Infiltration">
-                        <div class="card-meta">
-                            <span>15:05</span>
-                        </div>
+                    <a class="card-img card-img-sm" href="#">
+                        <img src="{% static 'img/engineer.jpg' %}" alt="Engineer">
                     </a>
                     <div class="card-body">
-                        <h6 class="card-title"><a href="video-post.html">Overwatch Animated Short Infiltration</a></h6>
-                        <p class="card-text font-size-md">'What do you get when you spend $39.99 on Overwatch loot crates? Jack plays through an ear...</p>
-                    </div>
-                    <div class="card-footer">
-                        <span><i class="ya ya-clock"></i> Jul 16, 2018</span>
-                        <span class="ml-auto"><i class="ya ya-eye"></i> 4890 views</span>
+                        <h6 class="card-title"><a href="#">Engineer</a></h6>
+                        <p class="card-text font-size-md">Engineers are the frontline support role. They will be equipped with devastating short ranged high powered shotguns. They will be heavily armored but slow. Probably the most entertaining gun will belong to this class, full-auto shotgun. Engineers also have the task of repairing damaged towers and prolonging the team’s chances of victory.</p>
                     </div>
                 </div>
-                <!-- end .card -->
             </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 card-group mb-sm-4">
-                <div class="card card-sm">
-                    <a class="card-img card-img-sm" href="video-post.html">
-                        <img src="https://i1.ytimg.com/vi/YsVv1ct3_7c/mqdefault.jpg" alt="We Play The Crew: Jumping the Grand Canyon">
-                        <div class="card-meta">
-                            <span>15:05</span>
+
+            {% for character in characters %}
+                <div class="col-sm-6 col-md-4 col-lg-3 card-group mb-sm-4">
+                    <div class="card card-sm">
+                        <a class="card-img card-img-sm" href="#">
+                            <img src="{{ character.image.url }}" alt="{{ character.title }}">
+                        </a>
+                        <div class="card-body">
+                            <h6 class="card-title"><a href="#">{{ character.character_class }}: {{ character.title }}</a></h6>
+                            <p class="card-text font-size-md">{{ character.description }}</p>
                         </div>
-                    </a>
-                    <div class="card-body">
-                        <h6 class="card-title"><a href="video-post.html">We Play The Crew: Jumping the Grand Canyon</a></h6>
-                        <p class="card-text font-size-md">See how you can customize your car for each situation, whether it's going off road......</p>
-                    </div>
-                    <div class="card-footer">
-                        <span><i class="ya ya-clock"></i> Jul 16, 2018</span>
-                        <span class="ml-auto"><i class="ya ya-eye"></i> 478 views</span>
                     </div>
                 </div>
-                <!-- end .card -->
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 card-group mb-sm-4">
-                <div class="card card-sm">
-                    <a class="card-img card-img-sm" href="video-post.html">
-                        <img src="https://i1.ytimg.com/vi/RgbKEjDo6-o/mqdefault.jpg" alt="VAMPYR Gameplay - Upcoming Single Player Game">
-                        <div class="card-meta">
-                            <span>7:01</span>
-                        </div>
-                    </a>
-                    <div class="card-body">
-                        <h6 class="card-title"><a href="video-post.html">VAMPYR Gameplay - Upcoming Single Player Game</a></h6>
-                        <p class="card-text font-size-md">Detract yet delight written farther his general. If in so bred at dare rose lose good. Fee...</p>
-                    </div>
-                    <div class="card-footer">
-                        <span><i class="ya ya-clock"></i> Jul 14, 2018</span>
-                        <span class="ml-auto"><i class="ya ya-eye"></i> 3698 views</span>
-                    </div>
-                </div>
-                <!-- end .card -->
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 card-group mb-sm-4">
-                <div class="card card-sm">
-                    <a class="card-img card-img-sm" href="video-post.html">
-                        <img src="https://i1.ytimg.com/vi/a-_-cHTjHgg/mqdefault.jpg" alt="PlayStation VR Headset, Camera, and Controller is Coming">
-                        <div class="card-meta">
-                            <span>3:50</span>
-                        </div>
-                    </a>
-                    <div class="card-body">
-                        <h6 class="card-title"><a href="video-post.html">PlayStation VR Headset, Camera, and Controller is Coming</a></h6>
-                        <p class="card-text font-size-md">For the first time see direct feed from the Project Morpheus shark attack......</p>
-                    </div>
-                    <div class="card-footer">
-                        <span><i class="ya ya-clock"></i> Jul 11, 2018</span>
-                        <span class="ml-auto"><i class="ya ya-eye"></i> 7788 views</span>
-                    </div>
-                </div>
-                <!-- end .card -->
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 card-group mb-sm-4">
-                <div class="card card-sm">
-                    <a class="card-img card-img-sm" href="video-post.html">
-                        <img src="https://i1.ytimg.com/vi/6vLFcjTeXSk/mqdefault.jpg" alt="Superhot VR Gameplay PlayStation">
-                        <div class="card-meta">
-                            <span>12:25</span>
-                        </div>
-                    </a>
-                    <div class="card-body">
-                        <h6 class="card-title"><a href="video-post.html">Superhot VR Gameplay PlayStation</a></h6>
-                        <p class="card-text font-size-md">Let's play Superhot VR on PS VR! Our fearless action hero Sid Shuman walks us through the ...</p>
-                    </div>
-                    <div class="card-footer">
-                        <span><i class="ya ya-clock"></i> Jul 10, 2018</span>
-                        <span class="ml-auto"><i class="ya ya-eye"></i> 982 views</span>
-                    </div>
-                </div>
-                <!-- end .card -->
-            </div>
+            {% endfor %}
+            
         </div>
     </div>
 </section>

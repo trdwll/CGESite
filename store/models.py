@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import gettext_lazy as _
 
+from decimal import Decimal
+
 
 class Product(models.Model):
     title = models.CharField(max_length=100, help_text='The title of the product that you are going to sell.')

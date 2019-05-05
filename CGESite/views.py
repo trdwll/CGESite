@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.core.mail import send_mail
 from django.conf import settings
 
-from .models import HomeData
+from .models import HomeData, HomeCarousel, Character
 from .forms import ContactForm
 from blog.models import Post
 
@@ -23,6 +23,12 @@ class HomeView(View):
 
 		return render(request, self.template_name, {
 			'homedata': HomeData.objects.get(),
+			'characters': Character.objects.all(),
+			'mercenary_characters': Character.objects.filter(character_class='Mercenary'),
+			'medic_characters': Character.objects.filter(character_class='Medic'),
+			'sniper_characters': Character.objects.filter(character_class='Sniper'),
+			'engineer_characters': Character.objects.filter(character_class='Engineer'),
+			'carousel': HomeCarousel.objects.all(),
 			'posts': Post.objects.all().order_by('-published_date')[:3]
 		})
 
