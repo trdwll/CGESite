@@ -17,6 +17,8 @@ from django.contrib.auth.views import (
 )
 
 
+from django_otp.admin import OTPAdminSite
+
 from . import views
 from users.views import LoginView, RegisterView, SettingsView
 from store.views import PurchasesView
@@ -68,4 +70,5 @@ if settings.DEBUG:
 admin.site.site_header = 'Chain Gang Entertainment Inc AdminCP'
 admin.site.site_title = 'Chain Gang Entertainment Inc AdminCP'
 
-# admin.site.__class__ = OTPAdminSite
+if not settings.DEBUG:
+    admin.site.__class__ = OTPAdminSite

@@ -76,6 +76,4 @@ SOCIAL_AUTH_PIPELINE = (
 
 LANGUAGE_CODE = 'en'
 
-
-
 CART_SESSION_ID = 'cart'

@@ -7,12 +7,7 @@ from django.contrib import admin
 
 from .models import HomeData, HomeCarousel, Character
 
-class HomeCarouselAdmin(admin.TabularInline):
-    model = HomeCarousel
-    extra = 2
-
 class SiteAdmin(admin.ModelAdmin):
-    #inlines = [HomeCarouselAdmin, ]
     
     def has_add_permission(self, *args, **kwargs):
         # restrict only 1 entry of this model
