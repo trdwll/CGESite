@@ -15,10 +15,10 @@ NO_REPLY_EMAIL = 'no-reply@mydomain.com'
 CONTACT_EMAIL = 'russ@trdwll.com'
 
 
-PAYPAL_RECEIVER_EMAIL = 'russ+fam@trdwll.com'
+PAYPAL_RECEIVER_EMAIL = 'paypal@trdwll.com'
 
 
-HTML_MINIFY = False
+HTML_MINIFY = True
 EXCLUDE_FROM_MINIFYING = ('dev/')
 
 OTP_TOTP_ISSUER = 'Chain Gang Entertainment Inc'
