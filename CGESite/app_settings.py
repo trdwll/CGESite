@@ -8,11 +8,11 @@ FORUM_LIST_PAGINATION = 20
 STORE_LIST_PAGINATION = 24
 
 
-NEWSLETTER_UNSUBSCRIBE_LINK = 'https://domain.com/newsletter/unsubscribe/'
+NEWSLETTER_UNSUBSCRIBE_LINK = 'https://chaingangentertainment.com/newsletter/unsubscribe/'
 
 SITE_TITLE = 'Chain Gang Entertainment'
-NO_REPLY_EMAIL = 'no-reply@mydomain.com'
-CONTACT_EMAIL = 'russ@trdwll.com'
+NO_REPLY_EMAIL = 'no-reply@chaingangentertainment.com'
+CONTACT_EMAIL = 'contact@chaingangentertainment.com'
 
 
 PAYPAL_RECEIVER_EMAIL = 'paypal@trdwll.com'
@@ -23,8 +23,8 @@ EXCLUDE_FROM_MINIFYING = ('dev/')
 
 OTP_TOTP_ISSUER = 'Chain Gang Entertainment Inc'
 
-GOOGLE_RECAPTCHA_SECRET_KEY = '6LcDeJoUAAAAAF7ASXpcAoY9SpGxRKLhKVlBUtQ5'
-GOOGLE_RECAPTCHA_PUBLIC_KEY = '6LcDeJoUAAAAAKOl-0zhUa1m0fZK51Eby_ZzhP0k'
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LcRWKIUAAAAAA7y7Q0BnX7QDLTSB-9zTRifpnOz' 
+GOOGLE_RECAPTCHA_PUBLIC_KEY = '6LcRWKIUAAAAAJPHz1o432RJbwcm3nwdNP-MHXca'
 
 
 AUTHENTICATION_BACKENDS = (
@@ -42,14 +42,14 @@ AUTHENTICATION_BACKENDS = (
 
 
 # Social Auth Settings
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '536162012155-fcmmannh5i8rr7tup3qfqpcgtatohtt8.apps.googleusercontent.com'  
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'EJXU6nKBiOGCfcMfcjUVSb18'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '704441209375-fu1nen7t2ka9viq37vkv5vgdgho5ld9p.apps.googleusercontent.com'  
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'dfxprhPETWlBunJ0606nFMNg'
 
 SOCIAL_AUTH_TWITTER_KEY = ''
 SOCIAL_AUTH_TWITTER_SECRET = ''
 
-SOCIAL_AUTH_TWITCH_KEY = '3lgibxzrdxfv4mgvvsg28m9pnzl5ln'
-SOCIAL_AUTH_TWITCH_SECRET = '0ogvrk6jakeiqrm0i3qelxt6apy20'
+SOCIAL_AUTH_TWITCH_KEY = '39ojiu3xa9h04vicw687gsl2ibjpfo'
+SOCIAL_AUTH_TWITCH_SECRET = 'o4vyy7cr36yfbx3uoltvpgda8002oy'
 
 SOCIAL_AUTH_DISCORD_KEY = '560580803633872896'  
 SOCIAL_AUTH_DISCORD_SECRET = 'EDaRhRENNkvEaJ-mUzPZAK0H13DEER5q'
