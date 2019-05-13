@@ -22,6 +22,9 @@ class PostAdmin(admin.ModelAdmin):
 
         super().save_model(request, obj, form, change)
 
+    class Media:
+        js = ('ckeditor/ckeditor/ckeditor.js', 'ckeditor/ckeditor/config.js')
+
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Post, PostAdmin)

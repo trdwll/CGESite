@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'taggit',
     'paypal.standard.ipn',
     'localflavor',
+    'ckeditor',
 ]
 
 
@@ -76,6 +77,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'CGESite.urls'
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
 
 TEMPLATES = [
     {
@@ -214,3 +220,6 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
     PAYPAL_TEST = False
+
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"

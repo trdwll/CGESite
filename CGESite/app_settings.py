@@ -18,7 +18,7 @@ CONTACT_EMAIL = 'contact@chaingangentertainment.com'
 PAYPAL_RECEIVER_EMAIL = 'paypal@trdwll.com'
 
 
-HTML_MINIFY = True
+HTML_MINIFY = False
 EXCLUDE_FROM_MINIFYING = ('dev/')
 
 OTP_TOTP_ISSUER = 'Chain Gang Entertainment Inc'

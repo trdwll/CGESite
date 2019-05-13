@@ -7,6 +7,8 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+from ckeditor.fields import RichTextField
+
 from taggit.managers import TaggableManager
 
 def post_upload_path(instance, filename):
@@ -31,7 +33,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_author')
     published_date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, help_text='Title of the post.')
-    body = models.TextField(help_text='The content of the post. (<strong>Markdown Supported</strong>)')
+    body = RichTextField()
     image = models.ImageField(upload_to=post_upload_path, help_text='The image that will be displayed on the blog home page and on the post itself. (<strong>1280x720</strong>)')
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, help_text='The category that the post will be listed under.')
     tags = TaggableManager(blank=True)

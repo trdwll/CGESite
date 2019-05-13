@@ -5,6 +5,7 @@ Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 class Forum(models.Model):
     title = models.CharField(max_length=100)
@@ -23,7 +24,8 @@ class Topic(models.Model):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE)
     author = models.ForeignKey(User, related_name='topic_author', on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
-    body = models.TextField()
+    body = RichTextField()
+    #body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField()
     updated = models.DateTimeField(blank=True, null=True)
@@ -40,7 +42,8 @@ class Topic(models.Model):
 class Post(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     author = models.ForeignKey(User, related_name='post_author', on_delete=models.CASCADE)
-    body = models.TextField()
+    body = RichTextField()
+    #body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(blank=True, null=True)
     updated_by = models.ForeignKey(User, related_name='post_updated_by', on_delete=models.CASCADE, blank=True, null=True)

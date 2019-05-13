@@ -1,5 +1,5 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField
 
 class Subscriber(models.Model):
     email = models.EmailField()
@@ -9,4 +9,5 @@ class Subscriber(models.Model):
 
 class Newsletter(models.Model):
     title = models.CharField(max_length=100)
-    body = models.TextField()
+    body = RichTextField()
+    #body = models.TextField()
