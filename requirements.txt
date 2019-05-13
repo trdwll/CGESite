@@ -4,6 +4,7 @@ django-multiselectfield
 django-htmlmin
 django-otp
 django-taggit
+django-ckeditor
 pycountry
 social-auth-app-django
 qrcode
