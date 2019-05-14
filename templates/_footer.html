@@ -6,7 +6,9 @@
                 <p>{% lorem 1 %}</p>
             </div>
             <div class="col-md-4 mb-4 mb-md-0 pb-1 pb-md-0">
-                <div class="footer-title">Popular Categories</div>
+                {% load static %}
+                <img src="{% static 'img/ChainGang_White.png' %}" />
+                {% comment %} <div class="footer-title">Popular Categories</div>
                 <div class="footer-tags">
                     <a href="#">Playstation 4</a>
                     <a href="#">Xbox One</a>
@@ -18,7 +20,7 @@
                     <a href="#">Wordpress</a>
                     <a href="#">Rachet</a>
                     <a href="#">Github</a>
-                </div>
+                </div> {% endcomment %}
             </div>
             <div class="col-md-4">
                 <div class="footer-title">Subscribe</div>

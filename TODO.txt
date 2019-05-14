@@ -6,8 +6,6 @@ Uncomment weasyprint on deploy etc - doesn't work on windows
 Gemeral
 - require login on certain views
 
-Store
-- Payment processing
 
 Go through and clean up all code and document it.
 
@@ -21,7 +19,6 @@ Blog
 - Comment on posts
 - estimated time to read
 - author display
-- upload images directly in textfield (add ckeditor to admin)
 Forum
 - Lock/Pin topics
 - Move topics & posts
