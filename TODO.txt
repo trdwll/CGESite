@@ -5,6 +5,7 @@ Uncomment weasyprint on deploy etc - doesn't work on windows
 
 Gemeral
 - require login on certain views
+- fix CKEditor uploading
 
 
 Go through and clean up all code and document it.

@@ -24,7 +24,7 @@ SECRET_KEY = 'r4y-g_+yy#w+^yl0b(pc9gpw92!y&fc)=x^b-m-6txd5i9v!-f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'fam.dev.trdwll.com', '10.5.1.104', 'chaingangentertainment.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.5.1.104', 'www.chaingangentertainment.com', 'chaingangentertainment.com']
 
 
 # Application definition

@@ -75,3 +75,18 @@ class BlogCategoryView(ListView):
             is_published=True, 
             category=Category.objects.filter(slug=self.kwargs['slug']).first()
         ).order_by('-published_date'))
+
+
+
+class BlogPostReactView(View):
+    def post(self, request, slug, react):
+        post = get_object_or_404(Post.objects.filter(slug=slug))
+
+        if react == '1' or react == '0':
+            pass
+
+        return redirect('blog_post_page', slug=slug)
+
+
+        # TODO: check if the user has already reacted and if they have then remove it, but don't allow the user to vote like and dislike
+
