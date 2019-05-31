@@ -16,5 +16,5 @@ urlpatterns = [
     path('category/<slug:slug>/', BlogCategoryView.as_view(), name='blog_category_page'),
     path('category/<slug:slug>/page/<int:page>/', BlogCategoryView.as_view(), name='blog_category_page_paginated'),
 
-    path('post/<slug:slug>/react/<int:result>/', BlogPostReactView.as_view(), name='blog_post_reaction_page'),
+    path('post/<slug:slug>/react/<int:react>/', BlogPostReactView.as_view(), name='blog_post_reaction_page'),
 ]

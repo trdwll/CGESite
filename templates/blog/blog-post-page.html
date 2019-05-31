@@ -35,18 +35,24 @@
                     <div class="mb-4 mb-md-0 mr-md-auto">
                         <p>send us your feedback</p>
                         <div class="reaction">
-                            <a class="btn btn-link" href="#"><i class="far fa-thumbs-up"></i> <span class="reaction-count">{{ like_count }}</span></a>
-                            <a class="btn btn-link" href="#"><i class="far fa-thumbs-down"></i> <span class="reaction-count">{{ dislike_count }}</span></a>
+                            <form method="POST" action="{% url 'blog_post_reaction_page' slug=post.slug react=1 %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link"><span class="d-inline-block" data-toggle="tooltip" title="Like"><i class="far fa-thumbs-up"></i></span> <span class="reaction-count">{{ likes_count }}</span></button>
+                            </form>
+                            <form method="POST" action="{% url 'blog_post_reaction_page' slug=post.slug react=0 %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link"><span class="d-inline-block" data-toggle="tooltip" title="Dislike"><i class="far fa-thumbs-down"></i></span> <span class="reaction-count">{{ dislikes_count }}</span></button>
+                            </form>
                         </div>
                         <!-- end .reaction -->
                     </div>
-                    <a class="avatar-card" href="profile.html">
+                    {% comment %} <a class="avatar-card" href="profile.html">
                         <div>
                             <div class="avatar-title">Smallville</div>
                             <p class="avatar-text">gameforest author</p>
                         </div>
                         <img src="img/user-5.jpg" alt="">
-                    </a>
+                    </a> {% endcomment %}
                     <!-- end .avatar-card -->
                 </div>
                 <!-- end .post-single -->

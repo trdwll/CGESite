@@ -3,11 +3,12 @@ Copyright 2019 Chain Gang Entertainment Inc. All Rights Reserved.
 Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
 """ 
 
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.views.generic import View, ListView
 from django.db.models import Count, Max
+from django.contrib.auth.models import User
 
-from .models import Category, Post
+from .models import Category, Post, Reaction
 
 import random
 
@@ -56,7 +57,12 @@ class BlogPostView(View):
     def get(self, request, slug):
         # We get the blog post object from the slug that's passed into the query
         post = get_object_or_404(Post.objects.filter(slug=slug, is_published=True))
-        return render(request, self.template_name, {'post': post})
+
+        # Get the like and dislike of the post
+        likes_count = Reaction.objects.filter(result=1).count()
+        dislikes_count = Reaction.objects.filter(result=0).count()
+
+        return render(request, self.template_name, {'post': post, 'likes_count': likes_count, 'dislikes_count': dislikes_count})
 
 
 class BlogCategoryView(ListView):
@@ -82,8 +88,23 @@ class BlogPostReactView(View):
     def post(self, request, slug, react):
         post = get_object_or_404(Post.objects.filter(slug=slug))
 
-        if react == '1' or react == '0':
-            pass
+        usr = User.objects.get(username=request.user.username)
+        user_reaction = Reaction.objects.filter(post=post, user=usr)
+
+        if not user_reaction.exists():
+            reaction = Reaction()
+            reaction.post = post
+            reaction.user = usr
+
+            if react == 0:
+                reaction.result = 0
+            
+            if react == 1:
+                reaction.result = 1
+
+            reaction.save()
+        else:
+            user_reaction.delete()
 
         return redirect('blog_post_page', slug=slug)
 
