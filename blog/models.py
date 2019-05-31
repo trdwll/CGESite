@@ -53,7 +53,7 @@ class Post(models.Model):
 class Reaction(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_reaction_user')
-    result = models.IntegerField()
+    react = models.IntegerField()
 
     class Meta:
         db_table = 'blog_post_reaction'

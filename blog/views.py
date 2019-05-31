@@ -97,10 +97,10 @@ class BlogPostReactView(View):
             reaction.user = usr
 
             if react == 0:
-                reaction.result = 0
+                reaction.react = 0
             
             if react == 1:
-                reaction.result = 1
+                reaction.react = 1
 
             reaction.save()
         else:
