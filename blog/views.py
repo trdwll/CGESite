@@ -86,25 +86,26 @@ class BlogCategoryView(ListView):
 
 class BlogPostReactView(View):
     def post(self, request, slug, react):
-        post = get_object_or_404(Post.objects.filter(slug=slug))
+        if request.user.is_authenticated:
+            post = get_object_or_404(Post.objects.filter(slug=slug))
 
-        usr = User.objects.get(username=request.user.username)
-        user_reaction = Reaction.objects.filter(post=post, user=usr)
+            usr = User.objects.get(username=request.user.username)
+            user_reaction = Reaction.objects.filter(post=post, user=usr)
 
-        if not user_reaction.exists():
-            reaction = Reaction()
-            reaction.post = post
-            reaction.user = usr
+            if not user_reaction.exists():
+                reaction = Reaction()
+                reaction.post = post
+                reaction.user = usr
 
-            if react == 0:
-                reaction.react = 0
-            
-            if react == 1:
-                reaction.react = 1
+                if react == 0:
+                    reaction.react = 0
+                
+                if react == 1:
+                    reaction.react = 1
 
-            reaction.save()
-        else:
-            user_reaction.delete()
+                reaction.save()
+            else:
+                user_reaction.delete()
 
         return redirect('blog_post_page', slug=slug)
 
