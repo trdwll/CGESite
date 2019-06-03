@@ -16,7 +16,7 @@ Go through and clean up all code and document it.
 Future Features (not confirmed/just thoughts)
 
 Blog
-- Like/Dislike posts
+- Like/Dislike posts                                                                                                    - June 2019
 - Comment on posts
 - estimated time to read
 - author display

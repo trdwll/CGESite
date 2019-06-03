@@ -59,8 +59,8 @@ class BlogPostView(View):
         post = get_object_or_404(Post.objects.filter(slug=slug, is_published=True))
 
         # Get the like and dislike of the post
-        likes_count = Reaction.objects.filter(result=1).count()
-        dislikes_count = Reaction.objects.filter(result=0).count()
+        likes_count = Reaction.objects.filter(react=1).count()
+        dislikes_count = Reaction.objects.filter(react=0).count()
 
         return render(request, self.template_name, {'post': post, 'likes_count': likes_count, 'dislikes_count': dislikes_count})
 
