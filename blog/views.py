@@ -108,7 +108,3 @@ class BlogPostReactView(View):
                 user_reaction.delete()
 
         return redirect('blog_post_page', slug=slug)
-
-
-        # TODO: check if the user has already reacted and if they have then remove it, but don't allow the user to vote like and dislike
-
