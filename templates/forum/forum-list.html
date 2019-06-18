@@ -58,7 +58,14 @@
                         {% for topic in topics %}
                         <tr>
                             <td>
-                                <h6 class="table-title"><a href="{{ topic.get_absolute_url }}">{{ topic.title }}</a></h6>
+                                <h6 class="table-title">
+                                {% if topic.status == 'Locked' %}
+                                <span title="Locked"><i class="fas fa-lock"></i></span>
+                                {% endif %}
+                                {% if topic.status == 'Pinned' %}
+                                <span title="Pinned"><i class="fas fa-thumbtack"></i></span>
+                                {% endif %}
+                                <a href="{{ topic.get_absolute_url }}">{{ topic.title }}</a></h6>
                                 <p class="table-text">
                                     by <a href="#">{{ topic.author.username }}</a> on {{ topic.date }}
                                 </p>

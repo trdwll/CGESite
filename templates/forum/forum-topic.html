@@ -18,10 +18,15 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-11 mx-auto">
+                {% if topic.status == 'Locked' %}
+                <div class="alert alert-warning" role="alert">
+                This topic is locked. Replies are disabled.
+                </div>
+                {% endif %}
                 <div class="card">
                     <div class="card-header d-flex align-items-center px-3 px-md-4">
                         <h6 class="card-title">{{ topic.title }}</h6>
-                        {% if request.user.is_authenticated and request.user == topic.author or request.user.is_staff or request.user.is_superuser%}
+                        {% if request.user.is_authenticated and request.user == topic.author or request.user.is_staff or request.user.is_superuser %}
                         <div class="dropdown ml-auto">
                             <button class="btn btn-link p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="ya ya-menu"></i>
@@ -30,10 +35,34 @@
                                 <a href="{% url 'forum_topic_page_edit' topic.forum.slug topic.slug topic.id %}" class="dropdown-item">Edit</a>
                                 {% if request.user.is_staff or request.user.is_superuser %}
                                     <form action="{% url 'forum_topic_page_delete' topic.forum.slug topic.slug topic.id %}" method="POST">
-                                    {% comment %} <a class="dropdown-item" href="{% url 'forum_topic_page_delete' topic.forum.slug topic.slug topic.id %}">Trash</a> {% endcomment %}
                                     {% csrf_token %}
                                     <button type="submit" class="dropdown-item" href="{% url 'forum_topic_page_delete' topic.forum.slug topic.slug topic.id %}">Trash</button>
                                     </form>
+                                    {% if topic.status == 'Open' %}
+                                        <form action="{% url 'forum_topic_page_lock' topic.forum.slug topic.slug topic.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item" href="{% url 'forum_topic_page_lock' topic.forum.slug topic.slug topic.id %}">Lock Topic</button>
+                                        </form>
+                                        <form action="{% url 'forum_topic_page_pin' topic.forum.slug topic.slug topic.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item" href="{% url 'forum_topic_page_pin' topic.forum.slug topic.slug topic.id %}">Pin Topic</button>
+                                        </form>
+                                    {% elif topic.status == 'Locked' %}
+                                        <form action="{% url 'forum_topic_page_unlock' topic.forum.slug topic.slug topic.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item" href="{% url 'forum_topic_page_unlock' topic.forum.slug topic.slug topic.id %}">Unlock Topic</button>
+                                        </form>
+                                    {% elif topic.status == 'Pinned' %}
+                                        <form action="{% url 'forum_topic_page_unpin' topic.forum.slug topic.slug topic.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item" href="{% url 'forum_topic_page_unpin' topic.forum.slug topic.slug topic.id %}">Unpin Topic</button>
+                                        </form>
+                                        <form action="{% url 'forum_topic_page_lock' topic.forum.slug topic.slug topic.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item" href="{% url 'forum_topic_page_lock' topic.forum.slug topic.slug topic.id %}">Lock Topic</button>
+                                        </form>
+                                    {% endif %}
+
                                 {% endif %}
                             </div>
                         </div>
@@ -66,6 +95,9 @@
                         </div>
                     </div> {% endcomment %}
                 </div>
+
+                {% if topic.status != 'Locked' or request.user.is_staff or request.user.is_superuser %}
+                
                 <h5 class="mt-5 mb-4">Leave a reply</h5>
                 {% comment %} <form class="mb-4" method="POST" action="{% url 'reply_to_topic' forum_slug=topic.forum.slug topic_slug=topic.slug topic_id=topic.pk %}">
                     {% csrf_token %}
@@ -103,6 +135,7 @@
                     </div>
                 </form>
 
+                {% endif %}
             </div>
         </div>
     </div>

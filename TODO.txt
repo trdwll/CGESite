@@ -19,9 +19,9 @@ Blog
 - Like/Dislike posts                                                                                                    - June 2019
 - Comment on posts
 - estimated time to read
-- author display
+- author display (add userprofile for the site to store avatars etc)
 Forum
-- Lock/Pin topics
+- Lock/Pin topics                                                                                                       - June 2019
 - Move topics & posts
 - Ordering of forums
 - Forum categories

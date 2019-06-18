@@ -7,6 +7,12 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from ckeditor_uploader.fields import RichTextUploadingField
 
+TOPIC_STATUS = (
+    ('1', 'Open'),
+    ('2', 'Locked'),
+    ('3', 'Pinned'),
+)
+
 class Forum(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=150)
@@ -31,6 +37,7 @@ class Topic(models.Model):
     updated = models.DateTimeField(blank=True, null=True)
     updated_by = models.ForeignKey(User, related_name='topic_updated_by', on_delete=models.CASCADE, blank=True, null=True)
     updated_reason = models.CharField(max_length=200, blank=True, null=True)
+    status = models.CharField(max_length=20, choices=TOPIC_STATUS, default='Open')
 
     def get_absolute_url(self):
         return reverse('forum_topic_page', kwargs={'forum_slug': self.forum.slug, 'topic_slug': self.slug, 'topic_id': self.pk})

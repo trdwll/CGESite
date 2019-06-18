@@ -39,7 +39,7 @@ class ForumListView(ListView):
     context_object_name = 'topics'
 
     def get_queryset(self, *args, **kwargs):
-        return Topic.objects.all().filter(forum=Forum.objects.get(slug=self.kwargs['forum_slug'])).order_by('-date')
+        return Topic.objects.all().filter(forum=Forum.objects.get(slug=self.kwargs['forum_slug'])).order_by('-date').order_by('-status')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -130,6 +130,7 @@ class TrashTopicView(View):
         posts = get_list_or_404(Post, topic=topic)
 
         if request.user.is_staff or request.user.is_superuser:
+            # TODO: Add soft-delete where we move them to the Trash forum 
             topic.delete()
             posts.delete()
 
@@ -142,6 +143,7 @@ class TrashPostView(View):
         posts = get_object_or_404(Post, topic=topic, id=post_id)
 
         if request.user == topic.author or request.user.is_staff or request.user.is_superuser:
+            # TODO: Add soft-delete where we move them to the Trash forum 
             posts.delete()
 
         return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
@@ -232,4 +234,53 @@ class EditPostView(View):
                 'post': post
             })
 
+        return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
+
+
+class LockTopicView(View):
+    def post(self, request, forum_slug, topic_slug, topic_id):
+        forum = get_object_or_404(Forum.objects.filter(slug=forum_slug))
+        topic = get_object_or_404(Topic, slug=topic_slug, id=topic_id, forum=forum)
+
+        if request.user.is_staff or request.user.is_superuser:
+            topic.status = 'Locked'
+            topic.save()
+            
+        return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
+
+
+# TODO: We can merge the Unlock and Unpin into one post request/class/method/whatever you want to call it rather than having 2 that does the exact same thing
+
+class UnlockTopicView(View):
+    def post(self, request, forum_slug, topic_slug, topic_id):
+        forum = get_object_or_404(Forum.objects.filter(slug=forum_slug))
+        topic = get_object_or_404(Topic, slug=topic_slug, id=topic_id, forum=forum)
+
+        if request.user.is_staff or request.user.is_superuser:
+            topic.status = 'Open'
+            topic.save()
+            
+        return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
+
+
+class PinTopicView(View):
+    def post(self, request, forum_slug, topic_slug, topic_id):
+        forum = get_object_or_404(Forum.objects.filter(slug=forum_slug))
+        topic = get_object_or_404(Topic, slug=topic_slug, id=topic_id, forum=forum)
+
+        if request.user.is_staff or request.user.is_superuser:
+            topic.status = 'Pinned'
+            topic.save()
+            
+        return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)
+
+class UnpinTopicView(View):
+    def post(self, request, forum_slug, topic_slug, topic_id):
+        forum = get_object_or_404(Forum.objects.filter(slug=forum_slug))
+        topic = get_object_or_404(Topic, slug=topic_slug, id=topic_id, forum=forum)
+
+        if request.user.is_staff or request.user.is_superuser:
+            topic.status = 'Open'
+            topic.save()
+            
         return redirect('forum_topic_page', forum_slug=forum_slug, topic_slug=topic_slug, topic_id=topic_id)

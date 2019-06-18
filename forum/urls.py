@@ -24,6 +24,10 @@ urlpatterns = [
     # Topic
     path('<slug:forum_slug>/<slug:topic_slug>.<int:topic_id>/delete/', views.TrashTopicView.as_view(), name='forum_topic_page_delete'),
     path('<slug:forum_slug>/<slug:topic_slug>.<int:topic_id>/edit/', views.EditTopicView.as_view(), name='forum_topic_page_edit'),
+    path('<slug:forum_slug>/<slug:topic_slug>.<int:topic_id>/lock/', views.LockTopicView.as_view(), name='forum_topic_page_lock'),
+    path('<slug:forum_slug>/<slug:topic_slug>.<int:topic_id>/unlock/', views.UnlockTopicView.as_view(), name='forum_topic_page_unlock'),
+    path('<slug:forum_slug>/<slug:topic_slug>.<int:topic_id>/pin/', views.PinTopicView.as_view(), name='forum_topic_page_pin'),
+    path('<slug:forum_slug>/<slug:topic_slug>.<int:topic_id>/unpin/', views.UnpinTopicView.as_view(), name='forum_topic_page_unpin'),
 
     # Post
     path('<slug:forum_slug>/<slug:topic_slug>.<int:topic_id>/delete-post/<int:post_id>/', views.TrashPostView.as_view(), name='forum_topic_page_delete_post'),
