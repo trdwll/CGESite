@@ -17,7 +17,8 @@ Future Features (not confirmed/just thoughts)
 
 Blog
 - Like/Dislike posts                                                                                                    - June 2019
-- Comment on posts
+- Comment on posts                                                                                                      - June 2019
+- edit/delete posts
 - estimated time to read
 - author display (add userprofile for the site to store avatars etc)
 Forum

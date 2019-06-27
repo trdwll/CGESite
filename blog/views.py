@@ -8,7 +8,10 @@ from django.views.generic import View, ListView
 from django.db.models import Count, Max
 from django.contrib.auth.models import User
 
-from .models import Category, Post, Reaction
+from .models import Category, Post, Reaction, Reply
+from .forms import ReplyPostForm
+
+from CGESite.utils import google_recaptcha
 
 import random
 
@@ -62,7 +65,9 @@ class BlogPostView(View):
         likes_count = Reaction.objects.filter(react=1).count()
         dislikes_count = Reaction.objects.filter(react=0).count()
 
-        return render(request, self.template_name, {'post': post, 'likes_count': likes_count, 'dislikes_count': dislikes_count})
+        posts = Reply.objects.filter(post=post).order_by('-date')
+
+        return render(request, self.template_name, {'post': post, 'likes_count': likes_count, 'dislikes_count': dislikes_count, 'form': ReplyPostForm(), 'posts': posts})
 
 
 class BlogCategoryView(ListView):
@@ -106,5 +111,25 @@ class BlogPostReactView(View):
                 reaction.save()
             else:
                 user_reaction.delete()
+
+        return redirect('blog_post_page', slug=slug)
+
+
+class BlogPostReplyView(View):
+    def post(self, request, slug):
+        if request.user.is_authenticated:
+
+            form = ReplyPostForm(request.POST)
+
+            if form.is_valid():
+                if google_recaptcha(request)['success']:
+                    post = get_object_or_404(Post.objects.filter(slug=slug))
+                    user = User.objects.get(username=request.user.username)
+
+                    reply = Reply()
+                    reply.post = post
+                    reply.user = user
+                    reply.body = form.cleaned_data['content']
+                    reply.save()
 
         return redirect('blog_post_page', slug=slug)

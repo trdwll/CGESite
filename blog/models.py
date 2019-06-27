@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 
 from taggit.managers import TaggableManager
 
@@ -57,3 +58,13 @@ class Reaction(models.Model):
 
     class Meta:
         db_table = 'blog_post_reaction'
+
+
+class Reply(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_reply_user')
+    body = RichTextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'blog_post_reply'
