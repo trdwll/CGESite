@@ -5,7 +5,11 @@ Original Author: Russ 'trdwll' Treadwell <russ@trdwll.com>
 
 from django.urls import path
 
-from .views import BlogHomeView, BlogPostView, BlogCategoryView, BlogPostReactView, BlogPostReplyView
+from .views import (
+    BlogHomeView, BlogPostView, BlogCategoryView, 
+    BlogPostReactView, BlogPostReplyView,
+    BlogTrashPostView, BlogEditPostView
+)
 
 urlpatterns = [
     path('', BlogHomeView.as_view(), name='blog_home_page'),
@@ -20,4 +24,8 @@ urlpatterns = [
 
     # TODO: Move this into BlogPostView instead of having it's own
     path('post/<slug:slug>/reply/', BlogPostReplyView.as_view(), name='blog_post_reply_page'),
+
+    # Moderator
+    path('<slug:slug>/delete/<int:reply_id>/', BlogTrashPostView.as_view(), name='blog_post_reply_delete'),
+    path('<slug:slug>/edit/<int:reply_id>/', BlogEditPostView.as_view(), name='blog_post_reply_edit'),
 ]

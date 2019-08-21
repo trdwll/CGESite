@@ -133,3 +133,21 @@ class BlogPostReplyView(View):
                     reply.save()
 
         return redirect('blog_post_page', slug=slug)
+
+
+class BlogTrashPostView(View):
+    def post(self, request, slug, reply_id):
+        if request.user.is_authenticated and request.user.is_staff or request.user.is_superuser:
+            post = get_object_or_404(Post.objects.filter(slug=slug))
+            reply = get_object_or_404(Reply.objects.filter(post=post, id=reply_id))
+
+            reply.delete()
+
+        return redirect('blog_post_page', slug=slug)
+
+
+class BlogEditPostView(View):
+
+    def post(self, request, slug, reply_id):
+        pass
+        

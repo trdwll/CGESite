@@ -5,8 +5,6 @@ Uncomment weasyprint on deploy etc - doesn't work on windows
 
 Gemeral
 - require login on certain views
-- fix CKEditor uploading
-
 
 Go through and clean up all code and document it.
 
@@ -15,10 +13,12 @@ Go through and clean up all code and document it.
 
 Future Features (not confirmed/just thoughts)
 
+Code cleanup                                                                                                            - July/August 2019
+
 Blog
 - Like/Dislike posts                                                                                                    - June 2019
 - Comment on posts                                                                                                      - June 2019
-- edit/delete posts
+- edit/delete posts                                                                                                     - August 2019
 - estimated time to read
 - author display (add userprofile for the site to store avatars etc)
 Forum
@@ -34,7 +34,7 @@ General
 - Translations
 - breadcrumbs
 - sitewide searching
-- Allow ckeditor image uploading
+- Allow ckeditor image uploading                                                                                           - June/July 2019
 - Log user ip addresses (especially when checking out)
 - Settings (update email/password etc)
 - Disconnect user accounts

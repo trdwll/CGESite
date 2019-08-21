@@ -128,27 +128,30 @@
                         Please login to submit a reply to this post!
                     </div>
                     {% endif %}
-                    {% for post in posts %}
+                    {% for reply in posts %}
                     <div class="media">
                         <div class="media-body">
                             <div class="d-flex">
                                 <div class="d-flex">
-                                    <a class="h6" href="#">{{ post.user }}</a>
-                                    <div class="media-meta">{{ post.date }}</div>
+                                    <a class="h6" href="#">{{ reply.user }}</a>
+                                    <div class="media-meta">{{ reply.date }}</div>
                                 </div>
                                 <div class="media-tools">
                                     {% if request.user.is_staff or request.user.is_superuser %}
-                                    <form action="#" method="POST">
+                                    <form action="{% url 'blog_post_reply_delete' slug=post.slug reply_id=reply.id %}" method="POST">
                                     {% csrf_token %}
                                         <button type="submit" class="btn btn-link btn-icon btn-xs" data-toggle="tooltip" title="Trash"><i class="ya ya-trash"></i></button>
                                     </form>
                                     {% endif %}
-                                    {% if request.user == post.user or request.user.is_staff or request.user.is_superuser %}
-                                    <a class="btn btn-link btn-icon btn-xs" data-toggle="tooltip" title="Edit Post" href="#"><i class="ya ya-edit"></i></a>
+                                    {% if request.user == reply.user or request.user.is_staff or request.user.is_superuser %}
+                                    <form action="{% url 'blog_post_reply_edit' slug=post.slug reply_id=reply.id %}" method="POST">
+                                    {% csrf_token %}
+                                        <button type="submit" class="btn btn-link btn-icon btn-xs" data-toggle="tooltip" title="Edit"><i class="ya ya-edit"></i></button>
+                                    </form>
                                     {% endif %}
                                 </div>
                             </div>
-                            {{ post.body|markdown|safe }}
+                            {{ reply.body|markdown|safe }}
                         </div>
                     </div>
                     {% endfor %}
