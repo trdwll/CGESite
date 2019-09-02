@@ -65,7 +65,9 @@ class Reply(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_reply_user')
     body = RichTextField()
     date = models.DateTimeField(auto_now_add=True)
-    update_message = models.CharField(max_length=200, help_text='When you edit this reply put a reason.', blank=True)
+    updated = models.DateTimeField(blank=True, null=True)
+    updated_by = models.ForeignKey(User, related_name='reply_updated_by', on_delete=models.CASCADE, blank=True, null=True)
+    updated_reason = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         db_table = 'blog_post_reply'

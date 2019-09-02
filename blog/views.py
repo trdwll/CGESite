@@ -7,9 +7,10 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.views.generic import View, ListView
 from django.db.models import Count, Max
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from .models import Category, Post, Reaction, Reply
-from .forms import ReplyPostForm
+from .forms import ReplyPostForm, ReplyEditPostForm
 
 from CGESite.utils import google_recaptcha
 
@@ -148,6 +149,37 @@ class BlogTrashPostView(View):
 
 class BlogEditPostView(View):
 
+    template_name = 'blog/moderator/blog-edit-reply.html'
+
+    def get(self, request, slug, reply_id):
+        post = get_object_or_404(Post.objects.filter(slug=slug))
+        reply = get_object_or_404(Reply.objects.filter(post=post, id=reply_id))
+
+        return render(request, self.template_name, {
+            'form': ReplyEditPostForm(),
+            'post': post,
+            'reply': reply
+        })
+
     def post(self, request, slug, reply_id):
-        pass
+        post = get_object_or_404(Post.objects.filter(slug=slug))
+        reply = get_object_or_404(Reply.objects.filter(post=post, id=reply_id))
+
+        form = ReplyEditPostForm(request.POST)
+
+        # could add some extra checks here
+        if form.is_valid() and google_recaptcha(request)['success'] and form.data['content']:
+            if request.user.is_authenticated and request.user.is_staff or request.user.is_superuser or request.user == reply.user:
+                reply.body = form.cleaned_data['content'] 
+                reply.updated = timezone.now() 
+                reply.updated_by = request.user
+                reply.updated_reason = form.cleaned_data['update_reason']
+                reply.save()
+
+                return redirect('blog_post_page', slug=slug)
         
+        return render(request, self.template_name, {
+            'form': form,
+            'post': post,
+            'reply': reply
+        })
