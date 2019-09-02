@@ -13,7 +13,7 @@ Go through and clean up all code and document it.
 
 Future Features (not confirmed/just thoughts)
 
-Code cleanup                                                                                                            - July/August 2019
+Code cleanup                                                                                                            - July/August/September 2019
 
 Blog
 - Like/Dislike posts                                                                                                    - June 2019

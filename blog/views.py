@@ -62,13 +62,15 @@ class BlogPostView(View):
         # We get the blog post object from the slug that's passed into the query
         post = get_object_or_404(Post.objects.filter(slug=slug, is_published=True))
 
+        reply_count = Reply.objects.filter(post=post).count()
+
         # Get the like and dislike of the post
         likes_count = Reaction.objects.filter(react=1).count()
         dislikes_count = Reaction.objects.filter(react=0).count()
 
         posts = Reply.objects.filter(post=post).order_by('-date')
 
-        return render(request, self.template_name, {'post': post, 'likes_count': likes_count, 'dislikes_count': dislikes_count, 'form': ReplyPostForm(), 'posts': posts})
+        return render(request, self.template_name, {'post': post, 'likes_count': likes_count, 'dislikes_count': dislikes_count, 'form': ReplyPostForm(), 'posts': posts, 'reply_count': reply_count})
 
 
 class BlogCategoryView(ListView):
