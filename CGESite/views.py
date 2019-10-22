@@ -10,8 +10,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from .models import HomeData, HomeCarousel, Character
-from .forms import ContactForm
+from .forms import ContactForm, SearchForm
 from blog.models import Post
+from forum.models import Topic
+from store.models import Product
 
 from .utils import google_recaptcha
 
@@ -54,4 +56,33 @@ class ContactView(View):
 					fail_silently=True
 				)
 			
+		return redirect('home_page')
+
+
+class SearchResultsView(View):
+	template_name = 'search-page.html'
+
+	def get(self, request):
+		
+		return render(request, self.template_name, {'form': SearchForm()})
+
+
+
+	def post(self, request):
+
+		form = SearchForm(request.POST)
+
+		if form.is_valid():
+			# if google_recaptcha(request)['success']: # TODO: implement recaptcha at a later date on the actual template and not in the navbar
+			s_data = form.cleaned_data['search_input']
+			blog_posts = Post.objects.filter(Q(title__icontains=s_data) | Q(body__icontains=s_data))
+			forum_topics = Topic.objects.filter(Q(title__icontains=s_data) | Q(body__icontains=s_data))
+			store_products = Product.objects.filter(Q(title__icontains=s_data) | Q(description__icontains=s_data) | Q(price__icontains=s_data))
+
+			count = blog_posts.count() + forum_topics.count() + store_products.count()
+
+			data = { 'search_results_count': count, 'blog_posts': blog_posts, 'forum_topics': forum_topics, 'store_products': store_products }
+			return render(request, self.template_name, { 'search_data': data, 'form': form })
+
+		print(form)
 		return redirect('home_page')

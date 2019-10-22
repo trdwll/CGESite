@@ -25,3 +25,13 @@ class ContactForm(forms.Form):
         'title',
         'content'
     ]
+
+class SearchForm(forms.Form):
+    search_input = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'What do you want to look for?'
+    }), min_length=3, label='Search', required=True)
+
+    meta = [
+        'search_input'
+    ]

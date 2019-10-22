@@ -93,11 +93,19 @@
                     </div>
                 </div>
             </li>
+
             {% endif %} 
 
-            {% comment %}
+            <form class="navbar-search" action="{% url "search_page" %}" method="post">
+                <div class="container">
+                    <input class="form-control mr-sm-2" type="text" name="search_input" id="search_input" placeholder="Search for games, posts..." aria-label="Search">
+                    <i class="ya ya-times search-close"></i>
+                    {% csrf_token %}
+                </div>
+            </form>
+
             <li class="nav-item"><a class="nav-link toggle-search" href="#"><i class="fas fa-search"></i></a></li>
-            {% endcomment %}
+            
         </ul>
     </div>
 </nav>

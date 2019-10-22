@@ -33,7 +33,7 @@ Forum
 General
 - Translations
 - breadcrumbs
-- sitewide searching
+- sitewide searching                                                                                                       - September/October 2019
 - Allow ckeditor image uploading                                                                                           - June/July 2019
 - Log user ip addresses (especially when checking out)
 - Settings (update email/password etc)

@@ -27,6 +27,7 @@ from newsletter.views import NewsletterSubscribeView, NewsletterUnSubscribeView
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home_page'),
     path('contact/', views.ContactView.as_view(), name='contact_page'),
+    path('search/', views.SearchResultsView.as_view(), name='search_page'),
 
     path('forum/', include('forum.urls')),
     path('store/', include('store.urls')),
