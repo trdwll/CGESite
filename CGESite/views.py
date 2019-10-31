@@ -63,9 +63,7 @@ class SearchResultsView(View):
 	template_name = 'search-page.html'
 
 	def get(self, request):
-		
 		return render(request, self.template_name, {'form': SearchForm()})
-
 
 
 	def post(self, request):
@@ -82,7 +80,6 @@ class SearchResultsView(View):
 			count = blog_posts.count() + forum_topics.count() + store_products.count()
 
 			data = { 'search_results_count': count, 'blog_posts': blog_posts, 'forum_topics': forum_topics, 'store_products': store_products }
-			return render(request, self.template_name, { 'search_data': data, 'form': form })
+			return render(request, self.template_name, { 'search_phrase': s_data, 'search_data': data, 'form': form })
 
-		print(form)
 		return redirect('home_page')

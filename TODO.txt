@@ -51,3 +51,7 @@ Store
 - Add messages for errors on pages
 - Show users their orders
 - Admin view orders
+
+searching
+- <mark>phrase</mark> if content contains the search phrase
+- pagination
